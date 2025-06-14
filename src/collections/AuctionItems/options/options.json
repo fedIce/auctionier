@@ -1,0 +1,21 @@
+{
+    "used_condition":[
+        { "label": "New", "value": "new" },
+        { "label": "Used", "value": "used" },
+        { "label": "Refurbished", "value": "refurbished" },
+        { "label": "Damaged", "value": "damaged" },
+        { "label": "For Parts", "value": "for_parts" },
+        { "label": "Unknown", "value": "unknown" }
+    ],
+    "condition_rating":[
+        { "label": "Mint", "value": "mint" },
+        { "label": "Like New", "value": "like_new" },
+        { "label": "Very Good", "value": "very_good" },
+        { "label": "Good", "value": "good" },
+        { "label": "Acceptable", "value": "acceptable" },
+        { "label": "Poor", "value": "poor" },
+        { "label": "Damaged", "value": "damaged" },
+        { "label": "For Parts", "value": "for_parts" },
+        { "label": "Unknown", "value": "unknown" }
+    ]
+}

@@ -9,6 +9,12 @@ import sharp from 'sharp'
 
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
+import { AuctionItems } from './collections/AuctionItems'
+import { Categories } from './collections/categories'
+import { SubCategories } from './collections/subcategories'
+import { Brands } from './collections/brands'
+import { AuctionTypes } from './collections/auction_types'
+import { Sellers } from './collections/sellers'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -20,7 +26,8 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media],
+  collections: [Users, Media, AuctionItems, Categories, SubCategories, Brands, AuctionTypes, Sellers],
+  // globals: [Categories],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
@@ -34,4 +41,5 @@ export default buildConfig({
     payloadCloudPlugin(),
     // storage-adapter-placeholder
   ],
+  maxDepth:2
 })
