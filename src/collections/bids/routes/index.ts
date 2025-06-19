@@ -26,7 +26,7 @@ export const post_bid = async (req: PayloadRequest, res: Response) => {
 
     // CREATE A NEW BID ITEM    
     const current_bid = typeof bid.current_bid === 'number' ? bid.current_bid : 0
-    let nextBid = Math.ceil(current_bid + (current_bid * 0.05))
+    const nextBid = Math.ceil(current_bid + (current_bid * 0.05))
 
     if (nextBid > amount) return Response.json({ error: `bids must be higher than ${nextBid} euros ` }, { status: 500 })
 
