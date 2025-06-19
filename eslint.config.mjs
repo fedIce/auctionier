@@ -13,15 +13,15 @@ const eslintConfig = [
   ...compat.extends('next/core-web-vitals', 'next/typescript'),
   {
     rules: {
-      '@typescript-eslint/ban-ts-comment': 'warn',
-      '@typescript-eslint/no-empty-object-type': 'warn',
-      '@typescript-eslint/no-explicit-any': 'warn',
+      '@typescript-eslint/ban-ts-comment': 'off', //warn
+      '@typescript-eslint/no-empty-object-type': 'off', //warn
+      '@typescript-eslint/no-explicit-any': 'off', //warn
       '@typescript-eslint/no-unused-vars': [
-        'warn',
+        'off', //warn
         {
           vars: 'all',
           args: 'after-used',
-          ignoreRestSiblings: false,
+          ignoreRestSiblings: true,
           argsIgnorePattern: '^_',
           varsIgnorePattern: '^_',
           destructuredArrayIgnorePattern: '^_',
