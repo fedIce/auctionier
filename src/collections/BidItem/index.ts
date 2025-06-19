@@ -1,5 +1,6 @@
-import { CollectionConfig } from "payload";
+import { CollectionConfig, PayloadRequest } from "payload";
 import { loadUserWatchList } from "../bids/routes";
+import { NextApiRequest } from "next";
 
 
 export const BidItem: CollectionConfig = {
@@ -67,7 +68,7 @@ export const BidItem: CollectionConfig = {
         {
             path: '/watch-list/:uid',
             method: 'get',
-            handler: async (req, res) => loadUserWatchList(req, res)
+            handler: async (req: PayloadRequest) => await loadUserWatchList(req)
         }
     ]
 }

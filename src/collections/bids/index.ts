@@ -74,12 +74,12 @@ export const Bids: CollectionConfig = {
         {
             path: '/place_bid',
             method: 'post',
-            handler: async (req, res) => post_bid(req, res)
+            handler: async (req) => post_bid(req)
         },
         {
             path: '/test_job/:id',
             method: 'get',
-            handler: async (req, res) => test_job(req, res)
+            handler: async (req) => test_job(req)
         }
     ]
 }

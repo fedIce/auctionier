@@ -15,7 +15,7 @@ const topBid = (bids) => {
   return top
 }
 
-export const scheduleCloseBidding: TaskHandler<'schedule-close-bidding-task'> = async ({ input, job, req }) => {
+export const scheduleCloseBidding: TaskHandler<'schedule-close-bidding-task'> = async ({ input, job, req, inlineTask, tasks }) => {
 
   console.log(`Running reminder job  -----------------------------------`);
 

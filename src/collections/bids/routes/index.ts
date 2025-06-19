@@ -1,9 +1,11 @@
 import { extractFavouriteData } from "@/functions"
 import { scheduleCloseBidding } from "@/jobs/scheduleCloseBidding"
-import { PayloadRequest } from "payload"
+import { BidItem } from "@/payload-types"
+import { RetryConfig } from "node_modules/payload/dist/queues/config/types/taskTypes"
+import { PayloadRequest, RunInlineTaskFunction, RunningJob, RunTaskFunctions } from "payload"
 
 
-export const post_bid = async (req: PayloadRequest, res: Response) => {
+export const post_bid = async (req: PayloadRequest) => {
 
     if (!req.user) return Response.json({ error: 'you do not have permission to perform this action' }, { status: 401 })
 
@@ -51,7 +53,7 @@ export const post_bid = async (req: PayloadRequest, res: Response) => {
         return Response.json({ error: 'Invalid auction bid ID' }, { status: 400 });
     }
 
-    const new_bids = {
+    const new_bids: { bids: (string | BidItem)[], current_bid: number, starting_bid?: number } = {
         bids: [...(Array.isArray(bid?.bids) ? bid.bids : []), bidItem.id],
         current_bid: amount
     }
@@ -74,7 +76,7 @@ export const post_bid = async (req: PayloadRequest, res: Response) => {
 }
 
 
-export const loadUserWatchList = async (req: PayloadRequest, res: Response) => {
+export const loadUserWatchList = async (req: PayloadRequest) => {
 
     const user_id = req.routeParams?.uid ?? null
     let bidsIds = []
@@ -111,19 +113,23 @@ export const loadUserWatchList = async (req: PayloadRequest, res: Response) => {
 }
 
 
-export const test_job = async (req: PayloadRequest, res: Response) => {
+export const test_job = async (req: PayloadRequest) => {
 
     const user = await req.payload.findByID({
         collection: 'bids',
-        id: req.routeParams?.id ?? null,
+        id: typeof req.routeParams?.id === 'string' || typeof req.routeParams?.id === 'number' ? req.routeParams.id : '',
     })
 
     const result = await scheduleCloseBidding({
         input: {
             id: user.id
         },
-        job:null,
-        req
+        job: {} as RunningJob<any>,
+        req,
+        inlineTask: function <TTaskInput extends object, TTaskOutput extends object>(taskID: string, taskArgs: { input?: TTaskInput; retries?: number | RetryConfig | undefined; task: (args: { inlineTask: RunInlineTaskFunction; input: TTaskInput; job: RunningJob<any>; req: PayloadRequest; tasks: RunTaskFunctions }) => { errorMessage?: string; state: "failed" } | { output: TTaskOutput; state?: "succeeded" } | Promise<{ errorMessage?: string; state: "failed" } | { output: TTaskOutput; state?: "succeeded" }> }): Promise<TTaskOutput> {
+            throw new Error("Function not implemented.")
+        },
+        tasks: {} as RunTaskFunctions
     })
 
 
