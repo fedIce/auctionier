@@ -14,7 +14,7 @@ export const AuctionTypes: CollectionConfig = {
             type: "text",
             required: true,
             hidden: true,
-            defaultValue: () => `category-${Math.random().toString(36).substring(2, 15)}`,
+            defaultValue: `category-${Math.random().toString(36).substring(2, 15)}`,
         },
         {
             name: 'slug',

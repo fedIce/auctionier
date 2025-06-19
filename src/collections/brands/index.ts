@@ -3,6 +3,15 @@ import { CollectionConfig } from "payload";
 
 export const Brands: CollectionConfig = {
     slug: "brands",
+    admin:{
+        useAsTitle: "brand_name"
+    },
+    access: {
+        read: () => true,
+        create: ({ req }) => !!req.user, 
+        update: ({ req }) => !!req.user,
+        delete: ({ req }) => !!req.user,
+    },
     fields: [
         {
             name: "brand_id",

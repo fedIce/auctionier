@@ -75,6 +75,9 @@ export interface Config {
     brands: Brand;
     auction_types: AuctionType;
     sellers: Seller;
+    bids: Bid;
+    bid_item: BidItem;
+    'payload-jobs': PayloadJob;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -89,6 +92,9 @@ export interface Config {
     brands: BrandsSelect<false> | BrandsSelect<true>;
     auction_types: AuctionTypesSelect<false> | AuctionTypesSelect<true>;
     sellers: SellersSelect<false> | SellersSelect<true>;
+    bids: BidsSelect<false> | BidsSelect<true>;
+    bid_item: BidItemSelect<false> | BidItemSelect<true>;
+    'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -103,7 +109,13 @@ export interface Config {
     collection: 'users';
   };
   jobs: {
-    tasks: unknown;
+    tasks: {
+      'schedule-close-bidding-task': TaskScheduleCloseBiddingTask;
+      inline: {
+        input: unknown;
+        output: unknown;
+      };
+    };
     workflows: unknown;
   };
 }
@@ -131,6 +143,8 @@ export interface UserAuthOperations {
  */
 export interface User {
   id: string;
+  fullname: string;
+  won_bids?: (string | Bid)[] | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -141,6 +155,51 @@ export interface User {
   loginAttempts?: number | null;
   lockUntil?: string | null;
   password?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "bids".
+ */
+export interface Bid {
+  id: string;
+  auction_id: string;
+  starting_bid: number;
+  current_bid?: number | null;
+  auction_starttime: string;
+  auction_endtime: string;
+  reserve_price?: number | null;
+  bids?: (string | BidItem)[] | null;
+  top_biddder?: (string | null) | User;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "bid_item".
+ */
+export interface BidItem {
+  id: string;
+  user?: (string | null) | User;
+  bid_id?: (string | null) | Bid;
+  amount?: number | null;
+  timestamp?: string | null;
+  auction_type?: (string | null) | AuctionType;
+  open_status?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "auction_types".
+ */
+export interface AuctionType {
+  id: string;
+  auction_type_id: string;
+  slug?: string | null;
+  auctionType?: string | null;
+  description: string;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -168,7 +227,9 @@ export interface Media {
 export interface AuctionItem {
   id: string;
   lotId: string;
+  bid_id?: (string | null) | Bid;
   title: string;
+  slug: string;
   category: string | Category;
   sub_category: string | SubCategory;
   auction_type: string | AuctionType;
@@ -178,37 +239,24 @@ export interface AuctionItem {
     | ('mint' | 'like_new' | 'very_good' | 'good' | 'acceptable' | 'poor' | 'damaged' | 'for_parts' | 'unknown')
     | null;
   active?: boolean | null;
-  bids?:
-    | {
-        id?: string | null;
-      }[]
-    | null;
   seller: string | Seller;
   condition_details?: string | null;
-  description_short: string;
-  description: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
+  description: string;
+  item_details: {
+    detail_key: string;
+    detail_value: string;
+    id?: string | null;
+  }[];
   authenticity_verified?: boolean | null;
   reserve_price?: number | null;
   buyNow?: boolean | null;
   buy_now_price?: number | null;
   startingBid: number;
+  startDate: string;
   endDate: string;
   tag: string[];
   image: (string | Media)[];
+  status: 'open' | 'closed' | 'suspended';
   updatedAt: string;
   createdAt: string;
 }
@@ -218,6 +266,7 @@ export interface AuctionItem {
  */
 export interface Category {
   id: string;
+  slug: string;
   category_id: string;
   category_name?: string | null;
   description: string;
@@ -230,23 +279,11 @@ export interface Category {
  */
 export interface SubCategory {
   id: string;
+  slug: string;
   sub_category_id: string;
   title: string;
   description: string;
   category?: (string | null) | Category;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "auction_types".
- */
-export interface AuctionType {
-  id: string;
-  auction_type_id: string;
-  slug?: string | null;
-  auctionType?: string | null;
-  description: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -273,6 +310,98 @@ export interface Seller {
   seller_phone_number: string;
   seller_email: string;
   seller_address: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-jobs".
+ */
+export interface PayloadJob {
+  id: string;
+  /**
+   * Input data provided to the job
+   */
+  input?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  taskStatus?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  completedAt?: string | null;
+  totalTried?: number | null;
+  /**
+   * If hasError is true this job will not be retried
+   */
+  hasError?: boolean | null;
+  /**
+   * If hasError is true, this is the error that caused it
+   */
+  error?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  /**
+   * Task execution log
+   */
+  log?:
+    | {
+        executedAt: string;
+        completedAt: string;
+        taskSlug: 'inline' | 'schedule-close-bidding-task';
+        taskID: string;
+        input?:
+          | {
+              [k: string]: unknown;
+            }
+          | unknown[]
+          | string
+          | number
+          | boolean
+          | null;
+        output?:
+          | {
+              [k: string]: unknown;
+            }
+          | unknown[]
+          | string
+          | number
+          | boolean
+          | null;
+        state: 'failed' | 'succeeded';
+        error?:
+          | {
+              [k: string]: unknown;
+            }
+          | unknown[]
+          | string
+          | number
+          | boolean
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  taskSlug?: ('inline' | 'schedule-close-bidding-task') | null;
+  queue?: string | null;
+  waitUntil?: string | null;
+  processing?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -314,6 +443,18 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'sellers';
         value: string | Seller;
+      } | null)
+    | ({
+        relationTo: 'bids';
+        value: string | Bid;
+      } | null)
+    | ({
+        relationTo: 'bid_item';
+        value: string | BidItem;
+      } | null)
+    | ({
+        relationTo: 'payload-jobs';
+        value: string | PayloadJob;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -362,6 +503,8 @@ export interface PayloadMigration {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
+  fullname?: T;
+  won_bids?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -396,7 +539,9 @@ export interface MediaSelect<T extends boolean = true> {
  */
 export interface AuctionItemsSelect<T extends boolean = true> {
   lotId?: T;
+  bid_id?: T;
   title?: T;
+  slug?: T;
   category?: T;
   sub_category?: T;
   auction_type?: T;
@@ -404,23 +549,26 @@ export interface AuctionItemsSelect<T extends boolean = true> {
   condition?: T;
   condition_rating?: T;
   active?: T;
-  bids?:
-    | T
-    | {
-        id?: T;
-      };
   seller?: T;
   condition_details?: T;
-  description_short?: T;
   description?: T;
+  item_details?:
+    | T
+    | {
+        detail_key?: T;
+        detail_value?: T;
+        id?: T;
+      };
   authenticity_verified?: T;
   reserve_price?: T;
   buyNow?: T;
   buy_now_price?: T;
   startingBid?: T;
+  startDate?: T;
   endDate?: T;
   tag?: T;
   image?: T;
+  status?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -429,6 +577,7 @@ export interface AuctionItemsSelect<T extends boolean = true> {
  * via the `definition` "categories_select".
  */
 export interface CategoriesSelect<T extends boolean = true> {
+  slug?: T;
   category_id?: T;
   category_name?: T;
   description?: T;
@@ -440,6 +589,7 @@ export interface CategoriesSelect<T extends boolean = true> {
  * via the `definition` "sub_categories_select".
  */
 export interface SubCategoriesSelect<T extends boolean = true> {
+  slug?: T;
   sub_category_id?: T;
   title?: T;
   description?: T;
@@ -485,6 +635,67 @@ export interface SellersSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "bids_select".
+ */
+export interface BidsSelect<T extends boolean = true> {
+  auction_id?: T;
+  starting_bid?: T;
+  current_bid?: T;
+  auction_starttime?: T;
+  auction_endtime?: T;
+  reserve_price?: T;
+  bids?: T;
+  top_biddder?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "bid_item_select".
+ */
+export interface BidItemSelect<T extends boolean = true> {
+  user?: T;
+  bid_id?: T;
+  amount?: T;
+  timestamp?: T;
+  auction_type?: T;
+  open_status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-jobs_select".
+ */
+export interface PayloadJobsSelect<T extends boolean = true> {
+  input?: T;
+  taskStatus?: T;
+  completedAt?: T;
+  totalTried?: T;
+  hasError?: T;
+  error?: T;
+  log?:
+    | T
+    | {
+        executedAt?: T;
+        completedAt?: T;
+        taskSlug?: T;
+        taskID?: T;
+        input?: T;
+        output?: T;
+        state?: T;
+        error?: T;
+        id?: T;
+      };
+  taskSlug?: T;
+  queue?: T;
+  waitUntil?: T;
+  processing?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents_select".
  */
 export interface PayloadLockedDocumentsSelect<T extends boolean = true> {
@@ -514,6 +725,18 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TaskSchedule-close-bidding-task".
+ */
+export interface TaskScheduleCloseBiddingTask {
+  input: {
+    id: string;
+  };
+  output: {
+    status: boolean;
+  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
