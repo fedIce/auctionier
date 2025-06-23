@@ -60,10 +60,10 @@ export default buildConfig({
   ],
   maxDepth: 2,
   csrf: [
-    'http://localhost:3000', 'http://localhost:3001', 'https://auctionier-frontend.vercel.app'
+    'http://localhost:3000', 'http://localhost:3001', 'https://auctionier-frontend.vercel.app', 'https://auctionier.vercel.app'
   ],
   cors: [
-    'http://localhost:3000', 'http://localhost:3001', 'https://auctionier-frontend.vercel.app'
+    'http://localhost:3000', 'http://localhost:3001', 'https://auctionier-frontend.vercel.app', 'https://auctionier.vercel.app'
   ],
   jobs: {
     tasks: [
