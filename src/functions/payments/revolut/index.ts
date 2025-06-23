@@ -19,7 +19,7 @@ export const createRevolutOrder = async (req: PayloadRequest) => {
     data.order = null
     let json = { token: null }
 
-    let config = {
+    const config = {
         method: 'post',
         maxBodyLength: Infinity,
         url: `${process.env.REVOLUTE_URL}/orders`,
@@ -101,6 +101,10 @@ export const confirmPayment = async (req: PayloadRequest) => {
         return Response.json({ status: 'error', message: String(e) })
     })
 
-    return Response.json({ id: result.docs[0].id, status: "success" })
+    if ('docs' in result && Array.isArray(result.docs) && result.docs.length > 0) {
+        return Response.json({ id: result.docs[0].id, status: "success" });
+    } else {
+        return Response.json({ status: 'error', message: 'Invalid result structure' });
+    }
 
 }
