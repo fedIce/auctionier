@@ -234,7 +234,7 @@ export interface AuctionItem {
   lotId: string;
   bid_id?: (string | null) | Bid;
   title: string;
-  slug: string;
+  slug?: string | null;
   category: string | Category;
   sub_category: string | SubCategory;
   auction_type: string | AuctionType;

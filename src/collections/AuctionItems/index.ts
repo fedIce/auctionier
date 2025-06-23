@@ -31,6 +31,7 @@ export const AuctionItems: CollectionConfig = {
             unique: true,
             admin: {
                 // readOnly: true
+                hidden: true
             }
         },
         {
@@ -42,7 +43,6 @@ export const AuctionItems: CollectionConfig = {
         {
             name: 'slug',
             type: 'text',
-            required: true,
             unique: true,
             admin: {
                 readOnly: true
@@ -283,18 +283,18 @@ export const AuctionItems: CollectionConfig = {
         beforeChange: [GenerateSlugHook],
         afterChange: [
             InitializeBidForAuctionHook,
-            async ({ doc, operation, req }) => {
-                if (operation === 'update') {
-                    await req.payload.jobs.queue({
-                        task: 'schedule-close-bidding-task',
-                        queue: 'hourly',
-                        input: {
-                            id: doc.id
-                        },
-                        waitUntil: new Date(Date.now() + 1000 * 60 * 2)
-                    })
-                }
-            }
+            // async ({ doc, operation, req }) => {
+            //     if (operation === 'update') {
+            //         await req.payload.jobs.queue({
+            //             task: 'schedule-close-bidding-task',
+            //             queue: 'hourly',
+            //             input: {
+            //                 id: doc.id
+            //             },
+            //             waitUntil: new Date(Date.now() + 1000 * 60 * 2)
+            //         })
+            //     }
+            // }
         ],
     },
 

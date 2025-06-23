@@ -37,11 +37,13 @@ export const InitializeBidForAuctionHook = async ({ doc, operation, req }: { doc
             auction_starttime: doc.startDate,
             auction_endtime: doc.endDate,
         }
-        const existing = await req.payload.findByID({
-            collection: 'bids',
-            id: doc.id,
-        }).catch(e => null);
-        if (!existing) {
+        try {
+            bid = await req.payload.findByID({
+                collection: 'bids',
+                id: doc.id,
+            });
+        } catch (e) {
+
             if (operation === 'create') {
                 data['current_bid'] = 0
             }
@@ -60,7 +62,24 @@ export const InitializeBidForAuctionHook = async ({ doc, operation, req }: { doc
             data: {
                 bid_id: bid.id
             }
+        }).catch(async e => {
+
+            payload.delete({
+                collection: 'auction-items',
+                id: doc.id
+            }).finally(() => {
+                payload.create({
+                    collection: 'auction-items',
+                    data: { ...doc, _id: bid.id, bid_id: bid.id }
+
+                })
+            })
+
+
+
+
         })
+
     }
     return doc
 }
