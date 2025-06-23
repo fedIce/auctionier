@@ -55,7 +55,6 @@ export const InitializeBidForAuctionHook = async ({ doc, operation, req }: { doc
         }
     }
 
-    console.log(bid, operation)
 
     if (operation == 'create' && bid) {
         console.log('updating created auction object')
@@ -80,7 +79,8 @@ export const InitializeBidForAuctionHook = async ({ doc, operation, req }: { doc
                     data: { ...doc, _id: bid.id, bid_id: bid.id }
 
                 }).catch(e => {
-                    console.log(e)
+                    // console.log(e)
+                    console.warn(e)
                 })
             })
 
