@@ -1,7 +1,14 @@
-import type { CollectionConfig } from 'payload'
+import type { CollectionConfig, PayloadRequest } from 'payload'
+import { confirmPayment, createRevolutOrder } from '../functions/payments/revolut'
 
 export const Users: CollectionConfig = {
   slug: 'users',
+  access: {
+    read: () => true,
+    create: ({ req }) => true,
+    update: ({ req }) => !!req.user,
+    delete: ({ req }) => !!req.user,
+  },
   admin: {
     useAsTitle: 'email',
   },
@@ -23,6 +30,23 @@ export const Users: CollectionConfig = {
       admin: {
         readOnly: true
       }
+    },
+    {
+      name: 'phone',
+      type: 'text',
+      unique: true
     }
   ],
+  endpoints: [
+    {
+      path: '/revolut/create-order',
+      method: 'post',
+      handler: async (req: PayloadRequest) => await createRevolutOrder(req)
+    },
+    {
+      path: '/revolut/comfirm/:ref',
+      method: 'get',
+      handler: async (req: PayloadRequest) => confirmPayment(req)
+    }
+  ]
 }

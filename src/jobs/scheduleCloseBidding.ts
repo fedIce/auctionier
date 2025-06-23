@@ -1,9 +1,10 @@
 import { TaskHandler } from "payload";
 
-const topBid = (bids) => {
+export const topBid = (bids) => {
   let top = {
     amount: 0,
-    user: null
+    user: null,
+    id: null
   }
 
   for (let i = 0; i <= bids.length - 1; i++) {

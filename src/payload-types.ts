@@ -77,6 +77,8 @@ export interface Config {
     sellers: Seller;
     bids: Bid;
     bid_item: BidItem;
+    'customer-shipping-details': CustomerShippingDetail;
+    orders: Order;
     'payload-jobs': PayloadJob;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -94,6 +96,8 @@ export interface Config {
     sellers: SellersSelect<false> | SellersSelect<true>;
     bids: BidsSelect<false> | BidsSelect<true>;
     bid_item: BidItemSelect<false> | BidItemSelect<true>;
+    'customer-shipping-details': CustomerShippingDetailsSelect<false> | CustomerShippingDetailsSelect<true>;
+    orders: OrdersSelect<false> | OrdersSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -145,6 +149,7 @@ export interface User {
   id: string;
   fullname: string;
   won_bids?: (string | Bid)[] | null;
+  phone?: string | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -315,6 +320,39 @@ export interface Seller {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "customer-shipping-details".
+ */
+export interface CustomerShippingDetail {
+  id: string;
+  user?: (string | null) | User;
+  address?: string | null;
+  city?: string | null;
+  region?: string | null;
+  postal?: string | null;
+  country?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "orders".
+ */
+export interface Order {
+  id: string;
+  user?: (string | null) | User;
+  auction?: (string | null) | AuctionItem;
+  payment_ref?: string | null;
+  winning_bid?: (string | null) | BidItem;
+  amount?: number | null;
+  currency?: string | null;
+  status?: ('pending' | 'completed' | 'cancelled' | 'shipped') | null;
+  payment_status?: ('paid' | 'unpaid' | 'refunded') | null;
+  payment_method?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-jobs".
  */
 export interface PayloadJob {
@@ -453,6 +491,14 @@ export interface PayloadLockedDocument {
         value: string | BidItem;
       } | null)
     | ({
+        relationTo: 'customer-shipping-details';
+        value: string | CustomerShippingDetail;
+      } | null)
+    | ({
+        relationTo: 'orders';
+        value: string | Order;
+      } | null)
+    | ({
         relationTo: 'payload-jobs';
         value: string | PayloadJob;
       } | null);
@@ -505,6 +551,7 @@ export interface PayloadMigration {
 export interface UsersSelect<T extends boolean = true> {
   fullname?: T;
   won_bids?: T;
+  phone?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -660,6 +707,37 @@ export interface BidItemSelect<T extends boolean = true> {
   timestamp?: T;
   auction_type?: T;
   open_status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "customer-shipping-details_select".
+ */
+export interface CustomerShippingDetailsSelect<T extends boolean = true> {
+  user?: T;
+  address?: T;
+  city?: T;
+  region?: T;
+  postal?: T;
+  country?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "orders_select".
+ */
+export interface OrdersSelect<T extends boolean = true> {
+  user?: T;
+  auction?: T;
+  payment_ref?: T;
+  winning_bid?: T;
+  amount?: T;
+  currency?: T;
+  status?: T;
+  payment_status?: T;
+  payment_method?: T;
   updatedAt?: T;
   createdAt?: T;
 }

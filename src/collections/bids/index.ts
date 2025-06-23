@@ -1,6 +1,6 @@
 import { error } from "console";
 import { CollectionConfig, PayloadHandler, PayloadRequest } from "payload";
-import { post_bid , test_job} from "./routes";
+import { post_bid, test_job } from "./routes";
 
 
 export const Bids: CollectionConfig = {
@@ -61,7 +61,7 @@ export const Bids: CollectionConfig = {
         },
         {
             name: 'top_biddder',
-            label:"Top Bidder",
+            label: "Top Bidder",
             type: 'relationship',
             relationTo: 'users',
             admin: {
