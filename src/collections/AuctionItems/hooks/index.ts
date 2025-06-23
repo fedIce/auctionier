@@ -55,7 +55,11 @@ export const InitializeBidForAuctionHook = async ({ doc, operation, req }: { doc
         }
     }
 
+    console.log(bid, operation)
+
     if (operation == 'create' && bid) {
+        console.log('updating created auction object')
+
         await payload.update({
             collection: 'auction-items',
             id: doc.id,
@@ -63,15 +67,20 @@ export const InitializeBidForAuctionHook = async ({ doc, operation, req }: { doc
                 bid_id: bid.id
             }
         }).catch(async e => {
+            console.log('update failed, now deleteing auction object')
 
             payload.delete({
                 collection: 'auction-items',
                 id: doc.id
             }).finally(() => {
+                console.log('update failed, now creating new auction object with same ID')
+
                 payload.create({
                     collection: 'auction-items',
                     data: { ...doc, _id: bid.id, bid_id: bid.id }
 
+                }).catch(e => {
+                    console.log(e)
                 })
             })
 
