@@ -2,7 +2,7 @@ import { TaskHandler } from "payload";
 
 
 
-interface Bid {
+export interface Bid {
   amount: number;
   user: string | null;
   id: string | null;

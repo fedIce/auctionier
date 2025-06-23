@@ -1,4 +1,4 @@
-import { topBid } from "@/jobs/scheduleCloseBidding";
+import { Bid, topBid } from "@/jobs/scheduleCloseBidding";
 import { PayloadRequest } from "payload";
 
 export const createRevolutOrder = async (req: PayloadRequest) => {
@@ -49,7 +49,9 @@ export const createRevolutOrder = async (req: PayloadRequest) => {
         })
         if (aucion_item.bid_id && typeof aucion_item.bid_id == 'object') {
 
-            const _topBid = topBid(aucion_item.bid_id.bids)
+            const _topBid = aucion_item.bid_id?.bids && Array.isArray(aucion_item.bid_id.bids)
+                ? topBid((aucion_item.bid_id.bids as Bid[]))
+                : null;
 
 
             //create Local order
@@ -60,7 +62,7 @@ export const createRevolutOrder = async (req: PayloadRequest) => {
                     auction: order.auction,
                     amount: data.totalAmount / 100,
                     currency: data.currency,
-                    winning_bid: _topBid.id,
+                    winning_bid: _topBid ? _topBid.id : null,
                     status: 'pending',
                     payment_status: 'unpaid',
                     payment_ref: json.token,
