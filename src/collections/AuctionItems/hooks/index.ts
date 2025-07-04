@@ -1,4 +1,3 @@
-import { closeAuction } from "@/app/api/inngest/route";
 import { slugify } from "@/functions";
 import { inngestApp } from "@/ingest";
 import { serve } from "inngest/next";
@@ -100,13 +99,7 @@ export const InitializeBidForAuctionHook = async ({ doc, operation, req }: { doc
 
         })
 
-        // serve({
-        //     client: inngestApp,
-        //     functions: [
-        //         /* your functions will be passed here later! */
-        //         closeAuction
-        //     ],
-        // });
+
 
     }
 

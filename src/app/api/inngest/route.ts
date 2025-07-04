@@ -3,7 +3,7 @@ import { serve } from "inngest/next";
 
 // Create an API that serves zero functions
 
-export const closeAuction = inngestApp.createFunction(
+const closeAuction = inngestApp.createFunction(
     { id: "close-auction" },
     { event: "app/close.auction" },
     async ({ event, step }) => {
