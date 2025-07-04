@@ -1,0 +1,14 @@
+import { inngestApp } from "@/ingest";
+
+// Create an API that serves zero functions
+
+export const closeAuction = inngestApp.createFunction(
+    { id: "close-auction" },
+    { event: "app/close.auction" },
+    async ({ event, step }) => {
+        await step.sleepUntil("wait-for-iso-string", event.data.time || new Date().toISOString());
+        const res = await fetch(process.env.NEXT_PUBLIC_API_URL + `/api/bids/test_job/${event.data.auction_id}`)
+        const json = await res.json();
+        return { message: json, auction: event.data.auction_id };
+    },
+);
