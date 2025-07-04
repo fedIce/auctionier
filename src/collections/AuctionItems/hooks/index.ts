@@ -55,12 +55,13 @@ export const InitializeBidForAuctionHook = async ({ doc, operation, req }: { doc
                 data
             });
         }
-
+        //SEND INNGEST EVENT TO CLOSE AUCTION
         await inngestApp.send({
             name: "app/close.auction",
             data: {
                 auction_id: doc.id,
-                time: doc.endDate,
+                // time: doc.endDate,
+                time: new Date(Date.now() + 10 * 1000).toISOString(), // For testing purposes, close auction in 10 seconds
             },
         });
     }
