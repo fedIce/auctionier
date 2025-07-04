@@ -1,4 +1,5 @@
 import { inngestApp } from "@/ingest";
+import { serve } from "inngest/next";
 
 // Create an API that serves zero functions
 
@@ -12,3 +13,11 @@ export const closeAuction = inngestApp.createFunction(
         return { message: json, auction: event.data.auction_id };
     },
 );
+
+export const { GET, POST, PUT } = serve({
+    client: inngestApp,
+    functions: [
+        /* your functions will be passed here later! */
+        closeAuction
+    ],
+});

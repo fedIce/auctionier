@@ -57,12 +57,12 @@ export const InitializeBidForAuctionHook = async ({ doc, operation, req }: { doc
             });
         }
 
-        serve({
-            client: inngestApp,
-            functions: [
-                /* your functions will be passed here later! */
-                closeAuction
-            ],
+        await inngestApp.send({
+            name: "app/close.auction",
+            data: {
+                auction_id: doc.id,
+                time: doc.endDate,
+            },
         });
     }
 
