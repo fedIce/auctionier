@@ -69,6 +69,7 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    auctions: Auction;
     'auction-items': AuctionItem;
     categories: Category;
     sub_categories: SubCategory;
@@ -88,6 +89,7 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    auctions: AuctionsSelect<false> | AuctionsSelect<true>;
     'auction-items': AuctionItemsSelect<false> | AuctionItemsSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     sub_categories: SubCategoriesSelect<false> | SubCategoriesSelect<true>;
@@ -227,12 +229,60 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "auctions".
+ */
+export interface Auction {
+  id: string;
+  title: string;
+  slug?: string | null;
+  verticalbannerImage?: (string | null) | Media;
+  horizontalbannerImage?: (string | null) | Media;
+  description: string;
+  startDate: string;
+  endDate: string;
+  startingBid?: number | null;
+  tag: string[];
+  category: string | Category;
+  sub_category: string | SubCategory;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "categories".
+ */
+export interface Category {
+  id: string;
+  slug: string;
+  category_id: string;
+  category_name?: string | null;
+  description: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "sub_categories".
+ */
+export interface SubCategory {
+  id: string;
+  slug: string;
+  sub_category_id: string;
+  title: string;
+  description: string;
+  category?: (string | null) | Category;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "auction-items".
  */
 export interface AuctionItem {
   id: string;
   lotId: string;
   bid_id?: (string | null) | Bid;
+  auction?: (string | null) | Auction;
   title: string;
   slug?: string | null;
   category: string | Category;
@@ -267,39 +317,13 @@ export interface AuctionItem {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "categories".
- */
-export interface Category {
-  id: string;
-  slug: string;
-  category_id: string;
-  category_name?: string | null;
-  description: string;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "sub_categories".
- */
-export interface SubCategory {
-  id: string;
-  slug: string;
-  sub_category_id: string;
-  title: string;
-  description: string;
-  category?: (string | null) | Category;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "brands".
  */
 export interface Brand {
   id: string;
   brand_id: string;
-  brand_name?: string | null;
+  slug?: string | null;
+  title?: string | null;
   description: string;
   updatedAt: string;
   createdAt: string;
@@ -459,6 +483,10 @@ export interface PayloadLockedDocument {
         value: string | Media;
       } | null)
     | ({
+        relationTo: 'auctions';
+        value: string | Auction;
+      } | null)
+    | ({
         relationTo: 'auction-items';
         value: string | AuctionItem;
       } | null)
@@ -582,11 +610,31 @@ export interface MediaSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "auctions_select".
+ */
+export interface AuctionsSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  verticalbannerImage?: T;
+  horizontalbannerImage?: T;
+  description?: T;
+  startDate?: T;
+  endDate?: T;
+  startingBid?: T;
+  tag?: T;
+  category?: T;
+  sub_category?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "auction-items_select".
  */
 export interface AuctionItemsSelect<T extends boolean = true> {
   lotId?: T;
   bid_id?: T;
+  auction?: T;
   title?: T;
   slug?: T;
   category?: T;
@@ -650,7 +698,8 @@ export interface SubCategoriesSelect<T extends boolean = true> {
  */
 export interface BrandsSelect<T extends boolean = true> {
   brand_id?: T;
-  brand_name?: T;
+  slug?: T;
+  title?: T;
   description?: T;
   updatedAt?: T;
   createdAt?: T;

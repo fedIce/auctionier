@@ -7,7 +7,7 @@ import { PayloadRequest, RunInlineTaskFunction, RunningJob, RunTaskFunctions } f
 
 export const post_bid = async (req: PayloadRequest) => {
 
-    // if (!req.user) return Response.json({ error: 'you do not have permission to perform this action' }, { status: 401 }) //---------> !INVESTIGATE!!!!
+    if (!req.user) return Response.json({ error: 'you do not have permission to perform this action' }, { status: 401 }) //---------> !INVESTIGATE!!!!
 
     const data = typeof req.json === 'function' ? await req.json() : {}
 

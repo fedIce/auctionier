@@ -1,14 +1,15 @@
 import { CollectionConfig } from "payload";
+import { GenerateSlugHook } from "../AuctionItems/hooks";
 
 
 export const Brands: CollectionConfig = {
     slug: "brands",
-    admin:{
-        useAsTitle: "brand_name"
+    admin: {
+        useAsTitle: "title"
     },
     access: {
         read: () => true,
-        create: ({ req }) => !!req.user, 
+        create: ({ req }) => !!req.user,
         update: ({ req }) => !!req.user,
         delete: ({ req }) => !!req.user,
     },
@@ -21,7 +22,15 @@ export const Brands: CollectionConfig = {
             defaultValue: () => `category-${Math.random().toString(36).substring(2, 15)}`,
         },
         {
-            name: "brand_name",
+            name: 'slug',
+            type: 'text',
+            unique: true,
+            admin: {
+                readOnly: true
+            }
+        },
+        {
+            name: "title",
             label: "Brand Name",
             type: "text",
         },
@@ -31,5 +40,8 @@ export const Brands: CollectionConfig = {
             type: "textarea",
             required: true,
         },
-    ]
+    ],
+    hooks: {
+        beforeChange: [GenerateSlugHook],
+    }
 }

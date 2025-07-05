@@ -4,6 +4,7 @@ import { FixedToolbarFeature } from '@payloadcms/richtext-lexical'
 import options from "./options/options.json"; // Assuming options.json has a default export
 import { slugify } from '../../functions'
 import { GenerateSlugHook, InitializeBidForAuctionHook } from "./hooks";
+import { handleSraechAuctionItems } from "./funcs/search";
 
 
 export const AuctionItems: CollectionConfig = {
@@ -33,6 +34,12 @@ export const AuctionItems: CollectionConfig = {
                 // readOnly: true
                 // hidden: true
             }
+        },
+        {
+            name: "auction",
+            label: "Auction",
+            type: "relationship",
+            relationTo: "auctions"
         },
         {
             name: "title",
@@ -283,18 +290,12 @@ export const AuctionItems: CollectionConfig = {
         beforeChange: [GenerateSlugHook],
         afterChange: [InitializeBidForAuctionHook]
     },
+    endpoints: [
+        {
+            path: '/search',
+            method: 'get',
+            handler: async (req) => handleSraechAuctionItems(req)
+        }
+    ]
 
 }
-
-// async ({ doc, operation, req }) => {
-//     if (operation === 'update') {
-//         await req.payload.jobs.queue({
-//             task: 'schedule-close-bidding-task',
-//             queue: 'hourly',
-//             input: {
-//                 id: doc.id
-//             },
-//             waitUntil: new Date(Date.now() + 1000 * 60 * 2)
-//         })
-//     }
-// }
