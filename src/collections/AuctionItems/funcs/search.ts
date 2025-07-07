@@ -3,6 +3,87 @@ import { PayloadRequest } from "payload";
 export const handleSraechAuctionItems = async (req: PayloadRequest) => {
   let { search = '', page = 1, limit = 10 } = req.query;
 
+  const filters: Record<string, any> = {};
+  let sortKey = '-createdAt';
+
+
+  if (req.query.sort) {
+    const sort = Array.isArray(req.query.sort) ? req.query.sort[-1] : req.query.sort;
+
+    switch (sort) {
+      case 'ending-soon':
+        sortKey = 'endDate';
+        break;
+      case 'ending-later':
+        sortKey = '-endDate';
+        break;
+      case 'newest-first':
+        sortKey = '-createdAt';
+        break;
+      case 'oldest-first':
+        sortKey = 'createdAt';
+        break;
+
+      default:
+        sortKey = '-createdAt';
+    }
+
+  }
+
+  if (req.query.categories) {
+    const categoryIds = Array.isArray(req.query.categories) ? req.query.categories : [req.query.categories];
+    filters['category.slug'] = {
+      in: categoryIds.map((id) => id.toString())
+    };
+  }
+
+  if (req.query.auction_type) {
+    const auctionTypeIds = Array.isArray(req.query.auction_type) ? req.query.auction_type : [req.query.auction_type];
+    filters['auction_type.auctionType'] = {
+      in: auctionTypeIds.map((id) => id.toString())
+    };
+  }
+
+  if (req.query.condition) {
+    const conditions = Array.isArray(req.query.condition) ? req.query.condition : [req.query.condition];
+    filters['condition'] = {
+      in: conditions.map((condition) => condition.toString())
+    };
+  }
+
+  if (req.query.condition_rating) {
+    const conditionRatings = Array.isArray(req.query.condition_rating) ? req.query.condition_rating : [req.query.condition_rating];
+    filters['condition_rating'] = {
+      in: conditionRatings.map((rating) => rating.toString())
+    };
+  }
+
+  if (req.query.auction) {
+    const auctionIds = Array.isArray(req.query.auction) ? req.query.auction : [req.query.auction];
+    filters['auction.slug'] = {
+      in: auctionIds.map((id) => id.toString())
+    };
+  }
+
+  if (req.query.brand) {
+    const brandIds = Array.isArray(req.query.brand) ? req.query.brand : [req.query.brand];
+    filters['brand.slug'] = {
+      in: brandIds.map((id) => id.toString())
+    };
+  }
+
+  if (req.query.reserve_price) {
+    const reservePrice = req.query.reserve_price;
+    if (reservePrice === 'has-reserve-price') {
+      filters['reserve_price'] = { gt: 0 };
+    } else if (reservePrice === 'no-reserve-price') {
+      filters['reserve_price'] = { equals: 0 };
+    }
+  }
+
+
+
+
   search = (search as string).toString().trim();
   page = Number(page as string) || 1;
   limit = Number(limit as string) || 10;
@@ -16,13 +97,16 @@ export const handleSraechAuctionItems = async (req: PayloadRequest) => {
 
   const items = await req.payload.find({
     collection: 'auction-items',
-    sort: '-createdAt',
+    sort: sortKey,
+    page: page as number | undefined,
+    limit: 10,
     where: {
       or: [
         { title: { contains: search } },
         { description: { contains: search } },
         { tag: { contains: search } },
-      ]
+      ],
+      ...filters
     }
   })
 
@@ -145,7 +229,7 @@ export const handleSraechAuctionItems = async (req: PayloadRequest) => {
             }
           },
         ],
-        auction: [
+        auctions: [
           {
             $lookup: {
               from: 'auctions',  // Collection to join with

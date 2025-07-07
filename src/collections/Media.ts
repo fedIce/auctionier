@@ -18,6 +18,20 @@ export const Media: CollectionConfig = {
   upload: {
     formatOptions: {
       format: 'webp'
-    }
+    },
+    imageSizes: [
+      {
+        name: 'thumbnail',
+        width: 200,
+        height: 200,
+        position: 'center',
+      },
+      {
+        name: 'medium',
+        width: 800,
+        height: 600,
+        position: 'center'
+      },
+    ],
   },
 }
