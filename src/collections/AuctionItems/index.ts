@@ -289,6 +289,7 @@ export const AuctionItems: CollectionConfig = {
     hooks: {
         beforeChange: [GenerateSlugHook],
         afterChange: [InitializeBidForAuctionHook]
+
     },
     endpoints: [
         {

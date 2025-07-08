@@ -1,0 +1,1298 @@
+[
+    {
+        "label": "academic cap",
+        "value": "AcademicCapIcon"
+    },
+    {
+        "label": "adjustments horizontal",
+        "value": "AdjustmentsHorizontalIcon"
+    },
+    {
+        "label": "adjustments vertical",
+        "value": "AdjustmentsVerticalIcon"
+    },
+    {
+        "label": "archive box arrow down",
+        "value": "ArchiveBoxArrowDownIcon"
+    },
+    {
+        "label": "archive box",
+        "value": "ArchiveBoxIcon"
+    },
+    {
+        "label": "archive box xmark",
+        "value": "ArchiveBoxXMarkIcon"
+    },
+    {
+        "label": "arrow down circle",
+        "value": "ArrowDownCircleIcon"
+    },
+    {
+        "label": "arrow down",
+        "value": "ArrowDownIcon"
+    },
+    {
+        "label": "arrow down left",
+        "value": "ArrowDownLeftIcon"
+    },
+    {
+        "label": "arrow down on square",
+        "value": "ArrowDownOnSquareIcon"
+    },
+    {
+        "label": "arrow down on square stack",
+        "value": "ArrowDownOnSquareStackIcon"
+    },
+    {
+        "label": "arrow down right",
+        "value": "ArrowDownRightIcon"
+    },
+    {
+        "label": "arrow down tray",
+        "value": "ArrowDownTrayIcon"
+    },
+    {
+        "label": "arrow left circle",
+        "value": "ArrowLeftCircleIcon"
+    },
+    {
+        "label": "arrow left end on rectangle",
+        "value": "ArrowLeftEndOnRectangleIcon"
+    },
+    {
+        "label": "arrow left",
+        "value": "ArrowLeftIcon"
+    },
+    {
+        "label": "arrow left on rectangle",
+        "value": "ArrowLeftOnRectangleIcon"
+    },
+    {
+        "label": "arrow left start on rectangle",
+        "value": "ArrowLeftStartOnRectangleIcon"
+    },
+    {
+        "label": "arrow long down",
+        "value": "ArrowLongDownIcon"
+    },
+    {
+        "label": "arrow long left",
+        "value": "ArrowLongLeftIcon"
+    },
+    {
+        "label": "arrow long right",
+        "value": "ArrowLongRightIcon"
+    },
+    {
+        "label": "arrow long up",
+        "value": "ArrowLongUpIcon"
+    },
+    {
+        "label": "arrow path",
+        "value": "ArrowPathIcon"
+    },
+    {
+        "label": "arrow path rounded square",
+        "value": "ArrowPathRoundedSquareIcon"
+    },
+    {
+        "label": "arrow right circle",
+        "value": "ArrowRightCircleIcon"
+    },
+    {
+        "label": "arrow right end on rectangle",
+        "value": "ArrowRightEndOnRectangleIcon"
+    },
+    {
+        "label": "arrow right",
+        "value": "ArrowRightIcon"
+    },
+    {
+        "label": "arrow right on rectangle",
+        "value": "ArrowRightOnRectangleIcon"
+    },
+    {
+        "label": "arrow right start on rectangle",
+        "value": "ArrowRightStartOnRectangleIcon"
+    },
+    {
+        "label": "arrow small down",
+        "value": "ArrowSmallDownIcon"
+    },
+    {
+        "label": "arrow small left",
+        "value": "ArrowSmallLeftIcon"
+    },
+    {
+        "label": "arrow small right",
+        "value": "ArrowSmallRightIcon"
+    },
+    {
+        "label": "arrow small up",
+        "value": "ArrowSmallUpIcon"
+    },
+    {
+        "label": "arrow top right on square",
+        "value": "ArrowTopRightOnSquareIcon"
+    },
+    {
+        "label": "arrow trending down",
+        "value": "ArrowTrendingDownIcon"
+    },
+    {
+        "label": "arrow trending up",
+        "value": "ArrowTrendingUpIcon"
+    },
+    {
+        "label": "arrow turn down left",
+        "value": "ArrowTurnDownLeftIcon"
+    },
+    {
+        "label": "arrow turn down right",
+        "value": "ArrowTurnDownRightIcon"
+    },
+    {
+        "label": "arrow turn left down",
+        "value": "ArrowTurnLeftDownIcon"
+    },
+    {
+        "label": "arrow turn left up",
+        "value": "ArrowTurnLeftUpIcon"
+    },
+    {
+        "label": "arrow turn right down",
+        "value": "ArrowTurnRightDownIcon"
+    },
+    {
+        "label": "arrow turn right up",
+        "value": "ArrowTurnRightUpIcon"
+    },
+    {
+        "label": "arrow turn up left",
+        "value": "ArrowTurnUpLeftIcon"
+    },
+    {
+        "label": "arrow turn up right",
+        "value": "ArrowTurnUpRightIcon"
+    },
+    {
+        "label": "arrow up circle",
+        "value": "ArrowUpCircleIcon"
+    },
+    {
+        "label": "arrow up",
+        "value": "ArrowUpIcon"
+    },
+    {
+        "label": "arrow up left",
+        "value": "ArrowUpLeftIcon"
+    },
+    {
+        "label": "arrow up on square",
+        "value": "ArrowUpOnSquareIcon"
+    },
+    {
+        "label": "arrow up on square stack",
+        "value": "ArrowUpOnSquareStackIcon"
+    },
+    {
+        "label": "arrow up right",
+        "value": "ArrowUpRightIcon"
+    },
+    {
+        "label": "arrow up tray",
+        "value": "ArrowUpTrayIcon"
+    },
+    {
+        "label": "arrow uturn down",
+        "value": "ArrowUturnDownIcon"
+    },
+    {
+        "label": "arrow uturn left",
+        "value": "ArrowUturnLeftIcon"
+    },
+    {
+        "label": "arrow uturn right",
+        "value": "ArrowUturnRightIcon"
+    },
+    {
+        "label": "arrow uturn up",
+        "value": "ArrowUturnUpIcon"
+    },
+    {
+        "label": "arrows pointing in",
+        "value": "ArrowsPointingInIcon"
+    },
+    {
+        "label": "arrows pointing out",
+        "value": "ArrowsPointingOutIcon"
+    },
+    {
+        "label": "arrows right left",
+        "value": "ArrowsRightLeftIcon"
+    },
+    {
+        "label": "arrows up down",
+        "value": "ArrowsUpDownIcon"
+    },
+    {
+        "label": "at symbol",
+        "value": "AtSymbolIcon"
+    },
+    {
+        "label": "backspace",
+        "value": "BackspaceIcon"
+    },
+    {
+        "label": "backward",
+        "value": "BackwardIcon"
+    },
+    {
+        "label": "banknotes",
+        "value": "BanknotesIcon"
+    },
+    {
+        "label": "bars2",
+        "value": "Bars2Icon"
+    },
+    {
+        "label": "bars3bottom left",
+        "value": "Bars3BottomLeftIcon"
+    },
+    {
+        "label": "bars3bottom right",
+        "value": "Bars3BottomRightIcon"
+    },
+    {
+        "label": "bars3center left",
+        "value": "Bars3CenterLeftIcon"
+    },
+    {
+        "label": "bars3",
+        "value": "Bars3Icon"
+    },
+    {
+        "label": "bars4",
+        "value": "Bars4Icon"
+    },
+    {
+        "label": "bars arrow down",
+        "value": "BarsArrowDownIcon"
+    },
+    {
+        "label": "bars arrow up",
+        "value": "BarsArrowUpIcon"
+    },
+    {
+        "label": "battery0",
+        "value": "Battery0Icon"
+    },
+    {
+        "label": "battery100",
+        "value": "Battery100Icon"
+    },
+    {
+        "label": "battery50",
+        "value": "Battery50Icon"
+    },
+    {
+        "label": "beaker",
+        "value": "BeakerIcon"
+    },
+    {
+        "label": "bell alert",
+        "value": "BellAlertIcon"
+    },
+    {
+        "label": "bell",
+        "value": "BellIcon"
+    },
+    {
+        "label": "bell slash",
+        "value": "BellSlashIcon"
+    },
+    {
+        "label": "bell snooze",
+        "value": "BellSnoozeIcon"
+    },
+    {
+        "label": "bold",
+        "value": "BoldIcon"
+    },
+    {
+        "label": "bolt",
+        "value": "BoltIcon"
+    },
+    {
+        "label": "bolt slash",
+        "value": "BoltSlashIcon"
+    },
+    {
+        "label": "book open",
+        "value": "BookOpenIcon"
+    },
+    {
+        "label": "bookmark",
+        "value": "BookmarkIcon"
+    },
+    {
+        "label": "bookmark slash",
+        "value": "BookmarkSlashIcon"
+    },
+    {
+        "label": "bookmark square",
+        "value": "BookmarkSquareIcon"
+    },
+    {
+        "label": "briefcase",
+        "value": "BriefcaseIcon"
+    },
+    {
+        "label": "bug ant",
+        "value": "BugAntIcon"
+    },
+    {
+        "label": "building library",
+        "value": "BuildingLibraryIcon"
+    },
+    {
+        "label": "building office2",
+        "value": "BuildingOffice2Icon"
+    },
+    {
+        "label": "building office",
+        "value": "BuildingOfficeIcon"
+    },
+    {
+        "label": "building storefront",
+        "value": "BuildingStorefrontIcon"
+    },
+    {
+        "label": "cake",
+        "value": "CakeIcon"
+    },
+    {
+        "label": "calculator",
+        "value": "CalculatorIcon"
+    },
+    {
+        "label": "calendar date range",
+        "value": "CalendarDateRangeIcon"
+    },
+    {
+        "label": "calendar days",
+        "value": "CalendarDaysIcon"
+    },
+    {
+        "label": "calendar",
+        "value": "CalendarIcon"
+    },
+    {
+        "label": "camera",
+        "value": "CameraIcon"
+    },
+    {
+        "label": "chart bar",
+        "value": "ChartBarIcon"
+    },
+    {
+        "label": "chart bar square",
+        "value": "ChartBarSquareIcon"
+    },
+    {
+        "label": "chart pie",
+        "value": "ChartPieIcon"
+    },
+    {
+        "label": "chat bubble bottom center",
+        "value": "ChatBubbleBottomCenterIcon"
+    },
+    {
+        "label": "chat bubble bottom center text",
+        "value": "ChatBubbleBottomCenterTextIcon"
+    },
+    {
+        "label": "chat bubble left ellipsis",
+        "value": "ChatBubbleLeftEllipsisIcon"
+    },
+    {
+        "label": "chat bubble left",
+        "value": "ChatBubbleLeftIcon"
+    },
+    {
+        "label": "chat bubble left right",
+        "value": "ChatBubbleLeftRightIcon"
+    },
+    {
+        "label": "chat bubble oval left ellipsis",
+        "value": "ChatBubbleOvalLeftEllipsisIcon"
+    },
+    {
+        "label": "chat bubble oval left",
+        "value": "ChatBubbleOvalLeftIcon"
+    },
+    {
+        "label": "check badge",
+        "value": "CheckBadgeIcon"
+    },
+    {
+        "label": "check circle",
+        "value": "CheckCircleIcon"
+    },
+    {
+        "label": "check",
+        "value": "CheckIcon"
+    },
+    {
+        "label": "chevron double down",
+        "value": "ChevronDoubleDownIcon"
+    },
+    {
+        "label": "chevron double left",
+        "value": "ChevronDoubleLeftIcon"
+    },
+    {
+        "label": "chevron double right",
+        "value": "ChevronDoubleRightIcon"
+    },
+    {
+        "label": "chevron double up",
+        "value": "ChevronDoubleUpIcon"
+    },
+    {
+        "label": "chevron down",
+        "value": "ChevronDownIcon"
+    },
+    {
+        "label": "chevron left",
+        "value": "ChevronLeftIcon"
+    },
+    {
+        "label": "chevron right",
+        "value": "ChevronRightIcon"
+    },
+    {
+        "label": "chevron up down",
+        "value": "ChevronUpDownIcon"
+    },
+    {
+        "label": "chevron up",
+        "value": "ChevronUpIcon"
+    },
+    {
+        "label": "circle stack",
+        "value": "CircleStackIcon"
+    },
+    {
+        "label": "clipboard document check",
+        "value": "ClipboardDocumentCheckIcon"
+    },
+    {
+        "label": "clipboard document",
+        "value": "ClipboardDocumentIcon"
+    },
+    {
+        "label": "clipboard document list",
+        "value": "ClipboardDocumentListIcon"
+    },
+    {
+        "label": "clipboard",
+        "value": "ClipboardIcon"
+    },
+    {
+        "label": "clock",
+        "value": "ClockIcon"
+    },
+    {
+        "label": "cloud arrow down",
+        "value": "CloudArrowDownIcon"
+    },
+    {
+        "label": "cloud arrow up",
+        "value": "CloudArrowUpIcon"
+    },
+    {
+        "label": "cloud",
+        "value": "CloudIcon"
+    },
+    {
+        "label": "code bracket",
+        "value": "CodeBracketIcon"
+    },
+    {
+        "label": "code bracket square",
+        "value": "CodeBracketSquareIcon"
+    },
+    {
+        "label": "cog6tooth",
+        "value": "Cog6ToothIcon"
+    },
+    {
+        "label": "cog8tooth",
+        "value": "Cog8ToothIcon"
+    },
+    {
+        "label": "cog",
+        "value": "CogIcon"
+    },
+    {
+        "label": "command line",
+        "value": "CommandLineIcon"
+    },
+    {
+        "label": "computer desktop",
+        "value": "ComputerDesktopIcon"
+    },
+    {
+        "label": "cpu chip",
+        "value": "CpuChipIcon"
+    },
+    {
+        "label": "credit card",
+        "value": "CreditCardIcon"
+    },
+    {
+        "label": "cube",
+        "value": "CubeIcon"
+    },
+    {
+        "label": "cube transparent",
+        "value": "CubeTransparentIcon"
+    },
+    {
+        "label": "currency bangladeshi",
+        "value": "CurrencyBangladeshiIcon"
+    },
+    {
+        "label": "currency dollar",
+        "value": "CurrencyDollarIcon"
+    },
+    {
+        "label": "currency euro",
+        "value": "CurrencyEuroIcon"
+    },
+    {
+        "label": "currency pound",
+        "value": "CurrencyPoundIcon"
+    },
+    {
+        "label": "currency rupee",
+        "value": "CurrencyRupeeIcon"
+    },
+    {
+        "label": "currency yen",
+        "value": "CurrencyYenIcon"
+    },
+    {
+        "label": "cursor arrow rays",
+        "value": "CursorArrowRaysIcon"
+    },
+    {
+        "label": "cursor arrow ripple",
+        "value": "CursorArrowRippleIcon"
+    },
+    {
+        "label": "device phone mobile",
+        "value": "DevicePhoneMobileIcon"
+    },
+    {
+        "label": "device tablet",
+        "value": "DeviceTabletIcon"
+    },
+    {
+        "label": "divide",
+        "value": "DivideIcon"
+    },
+    {
+        "label": "document arrow down",
+        "value": "DocumentArrowDownIcon"
+    },
+    {
+        "label": "document arrow up",
+        "value": "DocumentArrowUpIcon"
+    },
+    {
+        "label": "document chart bar",
+        "value": "DocumentChartBarIcon"
+    },
+    {
+        "label": "document check",
+        "value": "DocumentCheckIcon"
+    },
+    {
+        "label": "document currency bangladeshi",
+        "value": "DocumentCurrencyBangladeshiIcon"
+    },
+    {
+        "label": "document currency dollar",
+        "value": "DocumentCurrencyDollarIcon"
+    },
+    {
+        "label": "document currency euro",
+        "value": "DocumentCurrencyEuroIcon"
+    },
+    {
+        "label": "document currency pound",
+        "value": "DocumentCurrencyPoundIcon"
+    },
+    {
+        "label": "document currency rupee",
+        "value": "DocumentCurrencyRupeeIcon"
+    },
+    {
+        "label": "document currency yen",
+        "value": "DocumentCurrencyYenIcon"
+    },
+    {
+        "label": "document duplicate",
+        "value": "DocumentDuplicateIcon"
+    },
+    {
+        "label": "document",
+        "value": "DocumentIcon"
+    },
+    {
+        "label": "document magnifying glass",
+        "value": "DocumentMagnifyingGlassIcon"
+    },
+    {
+        "label": "document minus",
+        "value": "DocumentMinusIcon"
+    },
+    {
+        "label": "document plus",
+        "value": "DocumentPlusIcon"
+    },
+    {
+        "label": "document text",
+        "value": "DocumentTextIcon"
+    },
+    {
+        "label": "ellipsis horizontal circle",
+        "value": "EllipsisHorizontalCircleIcon"
+    },
+    {
+        "label": "ellipsis horizontal",
+        "value": "EllipsisHorizontalIcon"
+    },
+    {
+        "label": "ellipsis vertical",
+        "value": "EllipsisVerticalIcon"
+    },
+    {
+        "label": "envelope",
+        "value": "EnvelopeIcon"
+    },
+    {
+        "label": "envelope open",
+        "value": "EnvelopeOpenIcon"
+    },
+    {
+        "label": "equals",
+        "value": "EqualsIcon"
+    },
+    {
+        "label": "exclamation circle",
+        "value": "ExclamationCircleIcon"
+    },
+    {
+        "label": "exclamation triangle",
+        "value": "ExclamationTriangleIcon"
+    },
+    {
+        "label": "eye dropper",
+        "value": "EyeDropperIcon"
+    },
+    {
+        "label": "eye",
+        "value": "EyeIcon"
+    },
+    {
+        "label": "eye slash",
+        "value": "EyeSlashIcon"
+    },
+    {
+        "label": "face frown",
+        "value": "FaceFrownIcon"
+    },
+    {
+        "label": "face smile",
+        "value": "FaceSmileIcon"
+    },
+    {
+        "label": "film",
+        "value": "FilmIcon"
+    },
+    {
+        "label": "finger print",
+        "value": "FingerPrintIcon"
+    },
+    {
+        "label": "fire",
+        "value": "FireIcon"
+    },
+    {
+        "label": "flag",
+        "value": "FlagIcon"
+    },
+    {
+        "label": "folder arrow down",
+        "value": "FolderArrowDownIcon"
+    },
+    {
+        "label": "folder",
+        "value": "FolderIcon"
+    },
+    {
+        "label": "folder minus",
+        "value": "FolderMinusIcon"
+    },
+    {
+        "label": "folder open",
+        "value": "FolderOpenIcon"
+    },
+    {
+        "label": "folder plus",
+        "value": "FolderPlusIcon"
+    },
+    {
+        "label": "forward",
+        "value": "ForwardIcon"
+    },
+    {
+        "label": "funnel",
+        "value": "FunnelIcon"
+    },
+    {
+        "label": "gif",
+        "value": "GifIcon"
+    },
+    {
+        "label": "gift",
+        "value": "GiftIcon"
+    },
+    {
+        "label": "gift top",
+        "value": "GiftTopIcon"
+    },
+    {
+        "label": "globe alt",
+        "value": "GlobeAltIcon"
+    },
+    {
+        "label": "globe americas",
+        "value": "GlobeAmericasIcon"
+    },
+    {
+        "label": "globe asia australia",
+        "value": "GlobeAsiaAustraliaIcon"
+    },
+    {
+        "label": "globe europe africa",
+        "value": "GlobeEuropeAfricaIcon"
+    },
+    {
+        "label": "h1",
+        "value": "H1Icon"
+    },
+    {
+        "label": "h2",
+        "value": "H2Icon"
+    },
+    {
+        "label": "h3",
+        "value": "H3Icon"
+    },
+    {
+        "label": "hand raised",
+        "value": "HandRaisedIcon"
+    },
+    {
+        "label": "hand thumb down",
+        "value": "HandThumbDownIcon"
+    },
+    {
+        "label": "hand thumb up",
+        "value": "HandThumbUpIcon"
+    },
+    {
+        "label": "hashtag",
+        "value": "HashtagIcon"
+    },
+    {
+        "label": "heart",
+        "value": "HeartIcon"
+    },
+    {
+        "label": "home",
+        "value": "HomeIcon"
+    },
+    {
+        "label": "home modern",
+        "value": "HomeModernIcon"
+    },
+    {
+        "label": "identification",
+        "value": "IdentificationIcon"
+    },
+    {
+        "label": "inbox arrow down",
+        "value": "InboxArrowDownIcon"
+    },
+    {
+        "label": "inbox",
+        "value": "InboxIcon"
+    },
+    {
+        "label": "inbox stack",
+        "value": "InboxStackIcon"
+    },
+    {
+        "label": "information circle",
+        "value": "InformationCircleIcon"
+    },
+    {
+        "label": "italic",
+        "value": "ItalicIcon"
+    },
+    {
+        "label": "key",
+        "value": "KeyIcon"
+    },
+    {
+        "label": "language",
+        "value": "LanguageIcon"
+    },
+    {
+        "label": "lifebuoy",
+        "value": "LifebuoyIcon"
+    },
+    {
+        "label": "light bulb",
+        "value": "LightBulbIcon"
+    },
+    {
+        "label": "link",
+        "value": "LinkIcon"
+    },
+    {
+        "label": "link slash",
+        "value": "LinkSlashIcon"
+    },
+    {
+        "label": "list bullet",
+        "value": "ListBulletIcon"
+    },
+    {
+        "label": "lock closed",
+        "value": "LockClosedIcon"
+    },
+    {
+        "label": "lock open",
+        "value": "LockOpenIcon"
+    },
+    {
+        "label": "magnifying glass circle",
+        "value": "MagnifyingGlassCircleIcon"
+    },
+    {
+        "label": "magnifying glass",
+        "value": "MagnifyingGlassIcon"
+    },
+    {
+        "label": "magnifying glass minus",
+        "value": "MagnifyingGlassMinusIcon"
+    },
+    {
+        "label": "magnifying glass plus",
+        "value": "MagnifyingGlassPlusIcon"
+    },
+    {
+        "label": "map",
+        "value": "MapIcon"
+    },
+    {
+        "label": "map pin",
+        "value": "MapPinIcon"
+    },
+    {
+        "label": "megaphone",
+        "value": "MegaphoneIcon"
+    },
+    {
+        "label": "microphone",
+        "value": "MicrophoneIcon"
+    },
+    {
+        "label": "minus circle",
+        "value": "MinusCircleIcon"
+    },
+    {
+        "label": "minus",
+        "value": "MinusIcon"
+    },
+    {
+        "label": "minus small",
+        "value": "MinusSmallIcon"
+    },
+    {
+        "label": "moon",
+        "value": "MoonIcon"
+    },
+    {
+        "label": "musical note",
+        "value": "MusicalNoteIcon"
+    },
+    {
+        "label": "newspaper",
+        "value": "NewspaperIcon"
+    },
+    {
+        "label": "no symbol",
+        "value": "NoSymbolIcon"
+    },
+    {
+        "label": "numbered list",
+        "value": "NumberedListIcon"
+    },
+    {
+        "label": "paint brush",
+        "value": "PaintBrushIcon"
+    },
+    {
+        "label": "paper airplane",
+        "value": "PaperAirplaneIcon"
+    },
+    {
+        "label": "paper clip",
+        "value": "PaperClipIcon"
+    },
+    {
+        "label": "pause circle",
+        "value": "PauseCircleIcon"
+    },
+    {
+        "label": "pause",
+        "value": "PauseIcon"
+    },
+    {
+        "label": "pencil",
+        "value": "PencilIcon"
+    },
+    {
+        "label": "pencil square",
+        "value": "PencilSquareIcon"
+    },
+    {
+        "label": "percent badge",
+        "value": "PercentBadgeIcon"
+    },
+    {
+        "label": "phone arrow down left",
+        "value": "PhoneArrowDownLeftIcon"
+    },
+    {
+        "label": "phone arrow up right",
+        "value": "PhoneArrowUpRightIcon"
+    },
+    {
+        "label": "phone",
+        "value": "PhoneIcon"
+    },
+    {
+        "label": "phone xmark",
+        "value": "PhoneXMarkIcon"
+    },
+    {
+        "label": "photo",
+        "value": "PhotoIcon"
+    },
+    {
+        "label": "play circle",
+        "value": "PlayCircleIcon"
+    },
+    {
+        "label": "play",
+        "value": "PlayIcon"
+    },
+    {
+        "label": "play pause",
+        "value": "PlayPauseIcon"
+    },
+    {
+        "label": "plus circle",
+        "value": "PlusCircleIcon"
+    },
+    {
+        "label": "plus",
+        "value": "PlusIcon"
+    },
+    {
+        "label": "plus small",
+        "value": "PlusSmallIcon"
+    },
+    {
+        "label": "power",
+        "value": "PowerIcon"
+    },
+    {
+        "label": "presentation chart bar",
+        "value": "PresentationChartBarIcon"
+    },
+    {
+        "label": "presentation chart line",
+        "value": "PresentationChartLineIcon"
+    },
+    {
+        "label": "printer",
+        "value": "PrinterIcon"
+    },
+    {
+        "label": "puzzle piece",
+        "value": "PuzzlePieceIcon"
+    },
+    {
+        "label": "qr code",
+        "value": "QrCodeIcon"
+    },
+    {
+        "label": "question mark circle",
+        "value": "QuestionMarkCircleIcon"
+    },
+    {
+        "label": "queue list",
+        "value": "QueueListIcon"
+    },
+    {
+        "label": "radio",
+        "value": "RadioIcon"
+    },
+    {
+        "label": "receipt percent",
+        "value": "ReceiptPercentIcon"
+    },
+    {
+        "label": "receipt refund",
+        "value": "ReceiptRefundIcon"
+    },
+    {
+        "label": "rectangle group",
+        "value": "RectangleGroupIcon"
+    },
+    {
+        "label": "rectangle stack",
+        "value": "RectangleStackIcon"
+    },
+    {
+        "label": "rocket launch",
+        "value": "RocketLaunchIcon"
+    },
+    {
+        "label": "rss",
+        "value": "RssIcon"
+    },
+    {
+        "label": "scale",
+        "value": "ScaleIcon"
+    },
+    {
+        "label": "scissors",
+        "value": "ScissorsIcon"
+    },
+    {
+        "label": "server",
+        "value": "ServerIcon"
+    },
+    {
+        "label": "server stack",
+        "value": "ServerStackIcon"
+    },
+    {
+        "label": "share",
+        "value": "ShareIcon"
+    },
+    {
+        "label": "shield check",
+        "value": "ShieldCheckIcon"
+    },
+    {
+        "label": "shield exclamation",
+        "value": "ShieldExclamationIcon"
+    },
+    {
+        "label": "shopping bag",
+        "value": "ShoppingBagIcon"
+    },
+    {
+        "label": "shopping cart",
+        "value": "ShoppingCartIcon"
+    },
+    {
+        "label": "signal",
+        "value": "SignalIcon"
+    },
+    {
+        "label": "signal slash",
+        "value": "SignalSlashIcon"
+    },
+    {
+        "label": "slash",
+        "value": "SlashIcon"
+    },
+    {
+        "label": "sparkles",
+        "value": "SparklesIcon"
+    },
+    {
+        "label": "speaker wave",
+        "value": "SpeakerWaveIcon"
+    },
+    {
+        "label": "speaker xmark",
+        "value": "SpeakerXMarkIcon"
+    },
+    {
+        "label": "square2stack",
+        "value": "Square2StackIcon"
+    },
+    {
+        "label": "square3stack3d",
+        "value": "Square3Stack3DIcon"
+    },
+    {
+        "label": "squares2x2",
+        "value": "Squares2X2Icon"
+    },
+    {
+        "label": "squares plus",
+        "value": "SquaresPlusIcon"
+    },
+    {
+        "label": "star",
+        "value": "StarIcon"
+    },
+    {
+        "label": "stop circle",
+        "value": "StopCircleIcon"
+    },
+    {
+        "label": "stop",
+        "value": "StopIcon"
+    },
+    {
+        "label": "strikethrough",
+        "value": "StrikethroughIcon"
+    },
+    {
+        "label": "sun",
+        "value": "SunIcon"
+    },
+    {
+        "label": "swatch",
+        "value": "SwatchIcon"
+    },
+    {
+        "label": "table cells",
+        "value": "TableCellsIcon"
+    },
+    {
+        "label": "tag",
+        "value": "TagIcon"
+    },
+    {
+        "label": "ticket",
+        "value": "TicketIcon"
+    },
+    {
+        "label": "trash",
+        "value": "TrashIcon"
+    },
+    {
+        "label": "trophy",
+        "value": "TrophyIcon"
+    },
+    {
+        "label": "truck",
+        "value": "TruckIcon"
+    },
+    {
+        "label": "tv",
+        "value": "TvIcon"
+    },
+    {
+        "label": "underline",
+        "value": "UnderlineIcon"
+    },
+    {
+        "label": "user circle",
+        "value": "UserCircleIcon"
+    },
+    {
+        "label": "user group",
+        "value": "UserGroupIcon"
+    },
+    {
+        "label": "user",
+        "value": "UserIcon"
+    },
+    {
+        "label": "user minus",
+        "value": "UserMinusIcon"
+    },
+    {
+        "label": "user plus",
+        "value": "UserPlusIcon"
+    },
+    {
+        "label": "users",
+        "value": "UsersIcon"
+    },
+    {
+        "label": "variable",
+        "value": "VariableIcon"
+    },
+    {
+        "label": "video camera",
+        "value": "VideoCameraIcon"
+    },
+    {
+        "label": "video camera slash",
+        "value": "VideoCameraSlashIcon"
+    },
+    {
+        "label": "view columns",
+        "value": "ViewColumnsIcon"
+    },
+    {
+        "label": "viewfinder circle",
+        "value": "ViewfinderCircleIcon"
+    },
+    {
+        "label": "wallet",
+        "value": "WalletIcon"
+    },
+    {
+        "label": "wifi",
+        "value": "WifiIcon"
+    },
+    {
+        "label": "window",
+        "value": "WindowIcon"
+    },
+    {
+        "label": "wrench",
+        "value": "WrenchIcon"
+    },
+    {
+        "label": "wrench screwdriver",
+        "value": "WrenchScrewdriverIcon"
+    },
+    {
+        "label": "xcircle",
+        "value": "XCircleIcon"
+    },
+    {
+        "label": "xmark",
+        "value": "XMarkIcon"
+    }
+]

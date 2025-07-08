@@ -1,34 +1,7 @@
 import { PayloadRequest } from "payload";
 
-export const handleSraechAuctionItems = async (req: PayloadRequest) => {
-  let { search = '', page = 1, limit = 10 } = req.query;
-
+export const handleFilterQueries = (req: PayloadRequest) => {
   const filters: Record<string, any> = {};
-  let sortKey = '-createdAt';
-
-
-  if (req.query.sort) {
-    const sort = Array.isArray(req.query.sort) ? req.query.sort[-1] : req.query.sort;
-
-    switch (sort) {
-      case 'ending-soon':
-        sortKey = 'endDate';
-        break;
-      case 'ending-later':
-        sortKey = '-endDate';
-        break;
-      case 'newest-first':
-        sortKey = '-createdAt';
-        break;
-      case 'oldest-first':
-        sortKey = 'createdAt';
-        break;
-
-      default:
-        sortKey = '-createdAt';
-    }
-
-  }
 
   if (req.query.categories) {
     const categoryIds = Array.isArray(req.query.categories) ? req.query.categories : [req.query.categories];
@@ -58,8 +31,8 @@ export const handleSraechAuctionItems = async (req: PayloadRequest) => {
     };
   }
 
-  if (req.query.auction) {
-    const auctionIds = Array.isArray(req.query.auction) ? req.query.auction : [req.query.auction];
+  if (req.query.auctions) {
+    const auctionIds = Array.isArray(req.query.auctions) ? req.query.auctions : [req.query.auctions];
     filters['auction.slug'] = {
       in: auctionIds.map((id) => id.toString())
     };
@@ -80,6 +53,38 @@ export const handleSraechAuctionItems = async (req: PayloadRequest) => {
       filters['reserve_price'] = { equals: 0 };
     }
   }
+  return filters
+}
+
+export const handleSraechAuctionItems = async (req: PayloadRequest) => {
+  let { search = '', page = 1, limit = 10, sort_by = '-createdAt' } = req.query;
+
+  let sortKey = sort_by;
+
+
+  if (req.query.sort) {
+    const sort = Array.isArray(req.query.sort) ? req.query.sort[-1] : req.query.sort;
+
+    switch (sort) {
+      case 'ending-soon':
+        sortKey = 'endDate';
+        break;
+      case 'ending-later':
+        sortKey = '-endDate';
+        break;
+      case 'newest-first':
+        sortKey = '-createdAt';
+        break;
+      case 'oldest-first':
+        sortKey = 'createdAt';
+        break;
+
+      default:
+        sortKey = '-createdAt';
+    }
+
+  }
+
 
 
 
@@ -97,7 +102,7 @@ export const handleSraechAuctionItems = async (req: PayloadRequest) => {
 
   const items = await req.payload.find({
     collection: 'auction-items',
-    sort: sortKey,
+    sort: sortKey as string | undefined,
     page: page as number | undefined,
     limit: 10,
     where: {
@@ -106,7 +111,7 @@ export const handleSraechAuctionItems = async (req: PayloadRequest) => {
         { description: { contains: search } },
         { tag: { contains: search } },
       ],
-      ...filters
+      ...handleFilterQueries(req)
     }
   })
 

@@ -1,5 +1,7 @@
 import { slugify } from "@/functions";
 import { CollectionConfig } from "payload";
+import Icons from "./icons.json"; // Assuming icons.json has a default export
+import { search_categories } from "./routes";
 
 
 export const Categories: CollectionConfig = {
@@ -24,6 +26,15 @@ export const Categories: CollectionConfig = {
             }
         },
         {
+            name: "icon",
+            label: "Icon",
+            type: "select",
+            options: Icons,
+            defaultValue: "car",
+            required: true,
+
+        },
+        {
             name: "category_id",
             type: "text",
             required: true,
@@ -40,6 +51,13 @@ export const Categories: CollectionConfig = {
             label: "Description",
             type: "textarea",
             required: true,
+        },
+    ],
+    endpoints: [
+        {
+            path: '/t/:key',
+            method: 'get',
+            handler: async (req) => search_categories(req)
         },
     ],
     hooks: {
