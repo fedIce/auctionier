@@ -92,6 +92,7 @@ export const handleSraechAuctionItems = async (req: PayloadRequest) => {
   search = (search as string).toString().trim();
   page = Number(page as string) || 1;
   limit = Number(limit as string) || 10;
+  sort_by = (sort_by as string).toString().trim()
 
   if (!search || search === '') {
     return Response.json({ error: 'Search query cannot be empty' }, { status: 400 });
