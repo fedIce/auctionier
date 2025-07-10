@@ -29,7 +29,7 @@ export const search_categories = async (req: PayloadRequest) => {
 
 
     filters[`${key}.slug`] = {
-        in: [slug]
+        equals: slug
     }
     const items = await req.payload.find({
         collection: 'auction-items',
@@ -37,9 +37,11 @@ export const search_categories = async (req: PayloadRequest) => {
         page: page as number | undefined,
         limit: limit as number | undefined,
         where: {
-            ...filters,
-            ...handleFilterQueries(req)
+            ...filters
+            // ...handleFilterQueries(req)
         }
+    }).catch((e) => {
+        throw new Error('An error occurred while fetching items', e)
     })
 
     try {
