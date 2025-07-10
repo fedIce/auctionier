@@ -37,8 +37,8 @@ export const search_categories = async (req: PayloadRequest) => {
         page: page as number | undefined,
         limit: limit as number | undefined,
         where: {
-            ...filters,
-            // ...handleFilterQueries(req)
+            // ...filters,
+            ...handleFilterQueries(req)
         }
     })
 
