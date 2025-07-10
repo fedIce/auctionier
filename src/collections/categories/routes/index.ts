@@ -36,10 +36,10 @@ export const search_categories = async (req: PayloadRequest) => {
         sort: sortFilter(sort as string),
         page: page as number | undefined,
         limit: limit as number | undefined,
-        where: {
-            ...filters,
-            ...handleFilterQueries(req)
-        }
+        // where: {
+        //     ...filters,
+        //     ...handleFilterQueries(req)
+        // }
     })
 
     try {
