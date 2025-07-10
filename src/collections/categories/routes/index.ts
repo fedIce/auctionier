@@ -28,7 +28,7 @@ export const search_categories = async (req: PayloadRequest) => {
     const filters: Record<string, any> = {};
 
 
-    filters[key + `.slug`] = {
+    filters[`${key}.slug`] = {
         equals: slug
     }
     const items = await req.payload.find({
@@ -41,6 +41,9 @@ export const search_categories = async (req: PayloadRequest) => {
             // ...handleFilterQueries(req)
         }
     }).catch((e) => {
+        console.error({
+            message: 'An error occurred while fetching items', error: String(e), filters
+        })
         throw new Error('An error occurred while fetching items', e)
     })
 
