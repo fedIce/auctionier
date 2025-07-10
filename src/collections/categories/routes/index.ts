@@ -29,7 +29,7 @@ export const search_categories = async (req: PayloadRequest) => {
 
 
     filters[`${key}.slug`] = {
-        equals: slug
+        in: [slug]
     }
     const items = await req.payload.find({
         collection: 'auction-items',
@@ -37,7 +37,7 @@ export const search_categories = async (req: PayloadRequest) => {
         page: page as number | undefined,
         limit: limit as number | undefined,
         where: {
-            // ...filters,
+            ...filters,
             ...handleFilterQueries(req)
         }
     })
