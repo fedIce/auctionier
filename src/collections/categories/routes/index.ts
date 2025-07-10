@@ -28,7 +28,7 @@ export const search_categories = async (req: PayloadRequest) => {
     const filters: Record<string, any> = {};
 
 
-    filters[`${key}.slug`] = {
+    filters[key + `.slug`] = {
         equals: slug
     }
     const items = await req.payload.find({
