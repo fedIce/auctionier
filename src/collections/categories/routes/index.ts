@@ -31,19 +31,19 @@ export const search_categories = async (req: PayloadRequest) => {
     filters[`${key}.slug`] = {
         equals: slug
     }
+    const items = await req.payload.find({
+        collection: 'auction-items',
+        sort: sortFilter(sort as string),
+        page: page as number | undefined,
+        limit: limit as number | undefined,
+        where: {
+            ...filters,
+            ...handleFilterQueries(req)
+        }
+    })
 
     try {
 
-        const items = await req.payload.find({
-            collection: 'auction-items',
-            sort: sortFilter(sort as string),
-            page: page as number | undefined,
-            limit: limit as number | undefined,
-            where: {
-                ...filters,
-                ...handleFilterQueries(req)
-            }
-        })
 
         const r: Record<string, any> = {}
 
@@ -219,7 +219,8 @@ export const search_categories = async (req: PayloadRequest) => {
             error: String(e),
             message: 'filter failed',
             extra: {
-                key
+                key,
+                items: items.docs
             }
         })
     }
