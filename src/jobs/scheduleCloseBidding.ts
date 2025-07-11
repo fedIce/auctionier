@@ -45,7 +45,7 @@ export const scheduleCloseBidding = async ({ input, job, req, inlineTask, tasks 
 
   if (topBidder.amount <= 0) return { status: false, message: 'current bid at 0', bid: aucion_item.bid_id }
 
-  req.payload.update({
+  const bidderUpdate = await req.payload.update({
     collection: 'bids',
     id: input.id,
     data: {
@@ -58,7 +58,7 @@ export const scheduleCloseBidding = async ({ input, job, req, inlineTask, tasks 
     id: topBidder.user ?? '',
   })
 
-  req.payload.update({
+  const wonBidsUpdate = await req.payload.update({
     collection: 'users',
     id: user.id,
     data: {
@@ -66,7 +66,7 @@ export const scheduleCloseBidding = async ({ input, job, req, inlineTask, tasks 
     }
   })
 
-  req.payload.update({
+  const auctionItemUpdate = await req.payload.update({
     collection: 'auction-items',
     id: input.id,
     data: {
@@ -80,6 +80,6 @@ export const scheduleCloseBidding = async ({ input, job, req, inlineTask, tasks 
 
 
   // Your logic here (email, external API call, etc.)
-  return { status: true, message: user }
+  return { status: true, message: user.id, bidderUpdate, wonBidsUpdate, auctionItemUpdate }
 }
 
