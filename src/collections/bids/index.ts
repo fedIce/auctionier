@@ -34,12 +34,22 @@ export const Bids: CollectionConfig = {
             label: "Auction Start Time",
             type: "date",
             required: true,
+            admin: {
+                date: {
+                    pickerAppearance: 'dayAndTime'
+                }
+            }
         },
         {
             name: "auction_endtime",
             label: "Auction End Time",
             type: "date",
             required: true,
+            admin: {
+                date: {
+                    pickerAppearance: 'dayAndTime'
+                }
+            }
         },
         {
             name: "reserve_price",

@@ -39,47 +39,47 @@ export const scheduleCloseBidding = async ({ input, job, req, inlineTask, tasks 
   if (!aucion_item.active) return { status: false, message: 'auction is deactivated' }
 
 
-  if (aucion_item.bid_id && typeof aucion_item.bid_id == 'object') {
+  if (!(aucion_item.bid_id && typeof aucion_item.bid_id == 'object')) return { status: false, message: 'No Bid object for this auction' }
 
-    const topBidder = topBid(aucion_item.bid_id.bids)
+  const topBidder = topBid(aucion_item.bid_id.bids)
 
-    if (topBidder.amount <= 0) return { status: false, message: 'current bid at 0', bid: aucion_item.bid_id }
+  if (topBidder.amount <= 0) return { status: false, message: 'current bid at 0', bid: aucion_item.bid_id }
 
-    req.payload.update({
-      collection: 'bids',
-      id: input.id,
-      data: {
-        top_biddder: topBidder.user
-      }
-    })
+  req.payload.update({
+    collection: 'bids',
+    id: input.id,
+    data: {
+      top_biddder: topBidder.user
+    }
+  })
 
-    const user = await req.payload.findByID({
-      collection: 'users',
-      id: topBidder.user ?? '',
-    })
+  const user = await req.payload.findByID({
+    collection: 'users',
+    id: topBidder.user ?? '',
+  })
 
-    req.payload.update({
-      collection: 'users',
-      id: user.id,
-      data: {
-        won_bids: [...(user.won_bids ?? []), input.id]
-      }
-    })
+  req.payload.update({
+    collection: 'users',
+    id: user.id,
+    data: {
+      won_bids: [...(user.won_bids ?? []), input.id]
+    }
+  })
 
-    req.payload.update({
-      collection: 'auction-items',
-      id: input.id,
-      data: {
-        active: false,
-        status: 'closed'
-      }
-    })
-  }
+  req.payload.update({
+    collection: 'auction-items',
+    id: input.id,
+    data: {
+      active: false,
+      status: 'closed'
+    }
+  })
+
 
 
 
 
   // Your logic here (email, external API call, etc.)
-  return { status: true, message: 'Done!' }
+  return { status: true, message: user }
 }
 
