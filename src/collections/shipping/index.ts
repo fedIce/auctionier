@@ -3,6 +3,12 @@ import { saveShipping } from './requests'
 
 export const CustomerShippingDetails: CollectionConfig = {
     slug: 'customer-shipping-details',
+    access: {
+        read: () => true,
+        create: ({ req }) => true,
+        update: ({ req }) => true,
+        delete: ({ req }) => true,
+    },
     fields: [
         {
             name: 'user',
