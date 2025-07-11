@@ -36,7 +36,7 @@ export const scheduleCloseBidding = async ({ input, job, req, inlineTask, tasks 
   })
 
   if (aucion_item.status == 'closed') return { status: false, message: 'auction is closed' }
-  if (!aucion_item.active) return { status: false, message: 'auction is deactivated' }
+  if (aucion_item.active == false) return { status: false, message: 'auction is deactivated' }
 
 
   if (!(aucion_item.bid_id && typeof aucion_item.bid_id == 'object')) return { status: false, message: 'No Bid object for this auction' }
