@@ -6,8 +6,8 @@ export const Users: CollectionConfig = {
   access: {
     read: () => true,
     create: ({ req }) => true,
-    update: ({ req }) => !!req.user,
-    delete: ({ req }) => !!req.user,
+    update: ({ req }) => true,
+    delete: ({ req }) => true,
   },
   admin: {
     useAsTitle: 'email',
