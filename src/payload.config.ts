@@ -60,9 +60,8 @@ export default buildConfig({
     }),
   ],
   maxDepth: 2,
-  csrf: [
-    'http://localhost:3000', 'http://localhost:3001', 'https://auctionier-frontend.vercel.app', 'https://auctionier.vercel.app'
-  ],
+  serverURL: process.env.APP_URL,
+  csrf: [process.env.APP_URL || 'http://localhost:3001', process.env.FRONTEND_APP_URL || 'http://localhost:3000'],
   cors: {
     origins: [
       'http://localhost:3000', 'http://localhost:3001', 'https://auctionier-frontend.vercel.app', 'https://auctionier.vercel.app'
