@@ -35,7 +35,7 @@ export const search_categories = async (req: PayloadRequest) => {
         disableErrors: false,
         where: {
             [`${key}.slug`]: {
-                equals: slug, // Matches exactly "slug"
+                contains: slug,
             },
             ...handleFilterQueries(req)
         }
@@ -47,9 +47,12 @@ export const search_categories = async (req: PayloadRequest) => {
         const r: Record<string, any> = {}
 
 
-        const catId = typeof items.docs[0][key as keyof typeof items.docs[0]] === 'string'
+        const catId = items.docs.length > 0 ? typeof items.docs[0][key as keyof typeof items.docs[0]] === 'string'
             ? items.docs[0][key as keyof typeof items.docs[0]]
-            : (items.docs[0][key as keyof typeof items.docs[0]] as { id: string }).id;
+            : (items.docs[0][key as keyof typeof items.docs[0]] as { id: string }).id
+            : null
+
+        if (catId == null) return Response.json({ error: 'No items found' }, { status: 204 })
 
         r[key] = new ObjectId(catId as string)
 
