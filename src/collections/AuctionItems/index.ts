@@ -62,8 +62,8 @@ export const AuctionItems: CollectionConfig = {
             required: true,
             relationTo: "categories",
             admin: {
-                allowCreate: false,
-                allowEdit: false
+                allowCreate: true,
+                allowEdit: true
             },
         },
         {
@@ -101,8 +101,8 @@ export const AuctionItems: CollectionConfig = {
             type: "relationship",
             relationTo: "brands",
             admin: {
-                allowCreate: false,
-                allowEdit: false
+                allowCreate: true,
+                allowEdit: true
             },
         },
         {
@@ -135,8 +135,8 @@ export const AuctionItems: CollectionConfig = {
             relationTo: "sellers",
             required: true,
             admin: {
-                allowCreate: false,
-                allowEdit: false
+                allowCreate: true,
+                allowEdit: true
             }
         },
         {
@@ -235,6 +235,11 @@ export const AuctionItems: CollectionConfig = {
             type: "date",
             required: true,
             defaultValue: new Date(),
+            admin: {
+                date: {
+                    pickerAppearance: 'dayAndTime'
+                }
+            }
         },
         {
             name: "endDate",
@@ -242,6 +247,11 @@ export const AuctionItems: CollectionConfig = {
             type: "date",
             required: true,
             defaultValue: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000), // Default to 3 days from now
+            admin: {
+                date: {
+                    pickerAppearance: 'dayAndTime'
+                }
+            }
         },
         {
             type: "row",

@@ -52,9 +52,15 @@ export const InitializeBidForAuctionHook = async ({ doc, operation, req }: { doc
                 data['current_bid'] = 0
             }
 
-            bid = await payload.create({
+            bid = await payload.update({
                 collection: 'bids',
+                id: data._id,
                 data
+            }).catch(async (e) => {
+                return await payload.create({
+                    collection: 'bids',
+                    data
+                })
             });
         }
         //SEND INNGEST EVENT TO CLOSE AUCTION
