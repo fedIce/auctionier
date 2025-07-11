@@ -64,8 +64,8 @@ export const Bids: CollectionConfig = {
             relationTo: 'bid_item',
             hasMany: true,
             admin: {
-                readOnly: true,
-                allowEdit: false,
+                // readOnly: true,
+                // allowEdit: false,
                 allowCreate: false
             }
         },
@@ -75,7 +75,7 @@ export const Bids: CollectionConfig = {
             type: 'relationship',
             relationTo: 'users',
             admin: {
-                readOnly: true
+                // readOnly: true
             }
         }
 

@@ -122,10 +122,10 @@ export const AuctionItems: CollectionConfig = {
         {
             name: "active",
             type: "checkbox",
-            hidden: true,
+            // hidden: true,
             defaultValue: true,
             admin: {
-                readOnly: true
+                // readOnly: true
             }
         },
         {
