@@ -34,7 +34,7 @@ export const search_categories = async (req: PayloadRequest) => {
         limit: limit as number | undefined,
         where: {
             [`${key}.slug`]: {
-                contains: slug
+                like: slug
             },
             ...handleFilterQueries(req)
         }
