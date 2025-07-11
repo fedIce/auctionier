@@ -22,7 +22,7 @@ export const sortFilter = (sort: string): string => {
 
 export const search_categories = async (req: PayloadRequest) => {
 
-    const { slug = '', page = 1, limit = 10, sort = '' } = req.query as Record<string, any>;
+    const { slug = '', page = 1, limit = 9, sort = '' } = req.query as Record<string, any>;
     const key = req.routeParams?.key as string
 
     const filters: Record<string, any> = {};
@@ -34,7 +34,7 @@ export const search_categories = async (req: PayloadRequest) => {
         limit: limit as number | undefined,
         where: {
             [`${key}.slug`]: {
-                regex: `^${slug}$`, // Matches exactly "slug"
+                in: [slug], // Matches exactly "slug"
             },
             ...handleFilterQueries(req)
         }
