@@ -32,9 +32,10 @@ export const search_categories = async (req: PayloadRequest) => {
         sort: sortFilter(sort as string),
         page: page as number | undefined,
         limit: limit as number | undefined,
+        disableErrors: false,
         where: {
             [`${key}.slug`]: {
-                in: [slug], // Matches exactly "slug"
+                equals: slug, // Matches exactly "slug"
             },
             ...handleFilterQueries(req)
         }
