@@ -80,6 +80,6 @@ export const scheduleCloseBidding = async ({ input, job, req, inlineTask, tasks 
 
 
   // Your logic here (email, external API call, etc.)
-  return { status: true, message: user.id, bidderUpdate, wonBidsUpdate, auctionItemUpdate }
+  return { status: true, message: 'successfully closed auction!', bidderUpdate: bidderUpdate.id, wonBidsUpdate: wonBidsUpdate.id, auctionItemUpdate: auctionItemUpdate.id }
 }
 

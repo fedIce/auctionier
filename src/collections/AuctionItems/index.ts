@@ -33,6 +33,17 @@ export const AuctionItems: CollectionConfig = {
             admin: {
                 // readOnly: true
                 // hidden: true
+            },
+            filterOptions: ({ siblingData, relationTo }: { siblingData: unknown; relationTo: string }) => {
+                const typedSiblingData = siblingData as { id?: string }; // Explicitly cast siblingData
+                if (relationTo === 'bids' && typedSiblingData?.id) {
+                    return {
+                        id: {
+                            equals: typedSiblingData.id
+                        }
+                    };
+                }
+                return false; // Explicitly return false if the condition is not met
             }
         },
         {
