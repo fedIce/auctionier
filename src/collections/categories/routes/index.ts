@@ -25,24 +25,19 @@ export const search_categories = async (req: PayloadRequest) => {
     const { slug = '', page = 1, limit = 10, sort = '' } = req.query as Record<string, any>;
     const key = req.routeParams?.key as string
 
-    let filters: Record<string, any> = {};
-
-    filters = {
-        ...handleFilterQueries(req)
-    }
-
-    filters[`${key}.slug`] = {
-        equals: slug
-    }
-
-
+    const filters: Record<string, any> = {};
 
     const items = await req.payload.find({
         collection: 'auction-items',
         sort: sortFilter(sort as string),
         page: page as number | undefined,
         limit: limit as number | undefined,
-        where: filters
+        where: {
+            [`${key}.slug`]: {
+                equals: slug
+            },
+            ...handleFilterQueries(req)
+        }
     }).catch((e) => {
         console.error({
             message: 'An error occurred while fetching items', error: String(e), filters
