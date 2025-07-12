@@ -60,6 +60,9 @@ export default buildConfig({
     }),
   ],
   maxDepth: 2,
+  auth: {
+    jwtOrder: ['cookie', 'Bearer', 'JWT'], // Define JWT token order
+  },
   // serverURL: process.env.APP_URL,
   csrf: [process.env.APP_URL || 'http://localhost:3001', process.env.FRONTEND_APP_URL || 'http://localhost:3000'],
   cors: {

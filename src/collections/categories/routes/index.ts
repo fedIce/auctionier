@@ -41,10 +41,26 @@ export const search_categories = async (req: PayloadRequest) => {
         }
     })
 
+    if (items.docs?.length <= 0) {
+        return Response.json({
+            aggs: [], docs: [],
+            hasNextPage: false,
+            hasPrevPage: false,
+            limit: 0,
+            nextPage: 2,
+            page: 1,
+            pagingCounter: 0,
+            prevPage: 0,
+            totalDocs: 0,
+            totalPages: 0,
+        }, { status: 200 })
+    }
+
     try {
 
 
         const r: Record<string, any> = {}
+
 
 
         const catId = items.docs.length > 0 ? typeof items.docs[0][key as keyof typeof items.docs[0]] === 'string'
