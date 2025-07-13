@@ -22,8 +22,9 @@ export const sortFilter = (sort: string): string => {
 
 export const search_categories = async (req: PayloadRequest) => {
 
-    let { slug = '', page = 1, limit = 9, sort = '', depth = 1 } = req.query as Record<string, any>;
+    let { page = 1, limit = 9, sort = '', depth = 1 } = req.query as Record<string, any>;
     const key = req.routeParams?.key as string
+    let slug = req.searchParams.get('slug')
 
     slug = (slug as string).toString().trim();
     sort = (sort as string).toString().trim();
