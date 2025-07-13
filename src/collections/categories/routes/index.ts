@@ -31,6 +31,20 @@ export const search_categories = async (req: PayloadRequest) => {
     limit = Number(limit as string) || 1;
 
 
+    // const items = await req.payload.find({
+    //     collection: 'auction-items',
+    //     sort: sortFilter(sort),
+    //     page: page,
+    //     limit: limit,
+    //     disableErrors: false,
+    //     where: {
+    //         [`${key}.slug`]: {
+    //             equals: slug,
+    //         },
+    //         ...handleFilterQueries(req)
+    //     }
+    // })
+
     const items = await req.payload.find({
         collection: 'auction-items',
         sort: sortFilter(sort),
@@ -38,8 +52,8 @@ export const search_categories = async (req: PayloadRequest) => {
         limit: limit,
         disableErrors: false,
         where: {
-            [`${key}.slug`]: {
-                equals: slug,
+            [`auction.slug`]: {
+                equals: 'jurassic-park-rebirth-collection',
             },
             ...handleFilterQueries(req)
         }
