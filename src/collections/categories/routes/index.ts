@@ -52,7 +52,7 @@ export const search_categories = async (req: PayloadRequest) => {
         limit: limit,
         disableErrors: false,
         where: {
-            [`auction.slug`]: {
+            'auction.slug': {
                 equals: 'jurassic-park-rebirth-collection',
             },
             ...handleFilterQueries(req)
