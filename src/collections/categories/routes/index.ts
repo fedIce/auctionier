@@ -30,7 +30,7 @@ export const search_categories = async (req: PayloadRequest) => {
     page = Number(page as string) || 1;
     limit = Number(limit as string) || 1;
 
-    console.log('--------------------', key, '<>', slug, '-------------------------------')
+    console.log('--------------------', key, '<>', slug, req.query, '-------------------------------')
     const items = await req.payload.find({
         collection: 'auction-items',
         sort: sortFilter(sort),
