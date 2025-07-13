@@ -30,21 +30,7 @@ export const search_categories = async (req: PayloadRequest) => {
     page = Number(page as string) || 1;
     limit = Number(limit as string) || 1;
 
-
-    // const items = await req.payload.find({
-    //     collection: 'auction-items',
-    //     sort: sortFilter(sort),
-    //     page: page,
-    //     limit: limit,
-    //     disableErrors: false,
-    //     where: {
-    //         [`${key}.slug`]: {
-    //             equals: slug,
-    //         },
-    //         ...handleFilterQueries(req)
-    //     }
-    // })
-
+    console.log('--------------------', key, '<>', slug, '-------------------------------')
     const items = await req.payload.find({
         collection: 'auction-items',
         sort: sortFilter(sort),
@@ -52,8 +38,8 @@ export const search_categories = async (req: PayloadRequest) => {
         limit: limit,
         disableErrors: false,
         where: {
-            'auction.slug': {
-                equals: 'jurassic-park-rebirth-collection',
+            [`${key}.slug`]: {
+                equals: slug,
             },
             ...handleFilterQueries(req)
         }
@@ -71,6 +57,7 @@ export const search_categories = async (req: PayloadRequest) => {
             prevPage: 0,
             totalDocs: 0,
             totalPages: 0,
+            msg: ['--------------------', key, '<>', slug, '-------------------------------']
         }, { status: 200 })
     }
 
