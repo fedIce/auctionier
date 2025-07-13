@@ -22,20 +22,24 @@ export const sortFilter = (sort: string): string => {
 
 export const search_categories = async (req: PayloadRequest) => {
 
-    const { slug = '', page = 1, limit = 9, sort = '' } = req.query as Record<string, any>;
+    let { slug = '', page = 1, limit = 9, sort = '' } = req.query as Record<string, any>;
     const key = req.routeParams?.key as string
 
-    const filters: Record<string, any> = {};
+    slug = (slug as string).toString().trim();
+    sort = (sort as string).toString().trim();
+    page = Number(page as string) || 1;
+    limit = Number(limit as string) || 1;
+
 
     const items = await req.payload.find({
         collection: 'auction-items',
-        sort: sortFilter(sort as string),
-        page: page as number | undefined,
-        limit: limit as number | undefined,
+        sort: sortFilter(sort),
+        page: page,
+        limit: limit,
         disableErrors: false,
         where: {
             [`${key}.slug`]: {
-                contains: slug,
+                equals: slug,
             },
             ...handleFilterQueries(req)
         }
