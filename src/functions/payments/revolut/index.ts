@@ -1,6 +1,7 @@
 import { Bid, topBid } from "@/jobs/scheduleCloseBidding";
 import { PayloadRequest } from "payload";
 
+
 export const createRevolutOrder = async (req: PayloadRequest) => {
 
     const data = req.json ? await req.json() : null;
@@ -55,7 +56,7 @@ export const createRevolutOrder = async (req: PayloadRequest) => {
 
 
             //create Local order
-            req.payload.create({
+            await req.payload.create({
                 collection: 'orders',
                 data: {
                     user: order.user,
@@ -69,7 +70,17 @@ export const createRevolutOrder = async (req: PayloadRequest) => {
                     payment_method: 'revolut pay'
 
                 }
+            }).then(async (a_order) => {
+
+                await req.payload.update({
+                    collection: 'auction-items',
+                    id: aucion_item.id,
+                    data: {
+                        order: a_order.id
+                    }
+                })
             })
+
         }
         return Response.json(json, { status: 200 })
     }
@@ -97,7 +108,8 @@ export const confirmPayment = async (req: PayloadRequest) => {
             }
         },
         data: {
-            payment_status: 'paid'
+            payment_status: 'paid',
+            status: 'completed'
         }
     }).catch(e => {
         return Response.json({ status: 'error', message: String(e) })
@@ -108,5 +120,68 @@ export const confirmPayment = async (req: PayloadRequest) => {
     } else {
         return Response.json({ status: 'error', message: 'Invalid result structure' });
     }
+
+}
+
+
+const temp = {
+    TransactionCreated: {
+        "event": "TransactionCreated",
+        "timestamp": "2023-01-26T16:22:21.753463Z",
+        "data": {
+            "id": "63d2a8bd-8b67-a2de-b1d2-b58ee21d7073",
+            "type": "transfer",
+            "state": "pending",
+            "request_id": "6a8b2ad9-d8b9-4348-9207-1c5737ccf11b",
+            "created_at": "2023-01-26T16:22:21.765313Z",
+            "updated_at": "2023-01-26T16:22:21.765313Z",
+            "reference": "To John Doe",
+            "legs": [
+                {
+                    "leg_id": "63d2a8bd-8b67-a2de-0000-b58ee21d7073",
+                    "account_id": "05018b0d-e67c-4fec-bea6-415e9da9432c",
+                    "counterparty": {
+                        "id": "7e18625a-3e6c-4d4f-8429-216c25309a5f",
+                        "account_type": "external",
+                        "account_id": "ff29e658-f07f-4d81-bc0f-7ad0ff141357"
+                    },
+                    "amount": -10,
+                    "currency": "GBP",
+                    "description": "To Acme Corp"
+                }
+            ]
+        }
+    },
+    TransactionStateChanged: {
+        "event": "TransactionStateChanged",
+        "timestamp": "2023-04-06T12:21:49.865Z",
+        "data": {
+            "id": "9a6434d8-3581-4faa-988b-48875e785be7",
+            "request_id": "6a8b2ad9-d8b9-4348-9207-1c5737ccf11b",
+            "old_state": "pending",
+            "new_state": "reverted"
+        }
+    }
+
+}
+
+export const webHookHandler = async (req: PayloadRequest) => {
+
+    const hooks = ['TransactionCreated', 'TransactionStateChanged']
+    const data = temp.TransactionStateChanged
+
+    if (data.event == hooks[0]) {
+        // log new transaction created with transaction iD and lotID/auction-item id/
+        return Response.json({ message: 'Acknowledged: transaction created successfully!' })
+    }
+
+    if (data.event == hooks[1]) {
+        const _ = data.data
+        const id = _.id
+        if (_.new_state == 'complete') {
+
+        }
+    }
+
 
 }

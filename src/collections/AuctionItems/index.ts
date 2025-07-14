@@ -305,6 +305,16 @@ export const AuctionItems: CollectionConfig = {
             ],
             required: true,
             defaultValue: 'open'
+        },
+        {
+            name: 'order',
+            type: 'relationship',
+            relationTo: 'orders',
+            admin: {
+                readOnly: true,
+                allowCreate: false,
+                allowEdit: false
+            }
         }
     ],
     hooks: {

@@ -655,6 +655,7 @@ export interface AuctionItem {
   tag: string[];
   image: (string | Media)[];
   status: 'open' | 'closed' | 'suspended';
+  order?: (string | null) | Order;
   updatedAt: string;
   createdAt: string;
 }
@@ -687,21 +688,6 @@ export interface Seller {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "customer-shipping-details".
- */
-export interface CustomerShippingDetail {
-  id: string;
-  user?: (string | null) | User;
-  address?: string | null;
-  city?: string | null;
-  region?: string | null;
-  postal?: string | null;
-  country?: string | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "orders".
  */
 export interface Order {
@@ -715,6 +701,21 @@ export interface Order {
   status?: ('pending' | 'completed' | 'cancelled' | 'shipped') | null;
   payment_status?: ('paid' | 'unpaid' | 'refunded') | null;
   payment_method?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "customer-shipping-details".
+ */
+export interface CustomerShippingDetail {
+  id: string;
+  user?: (string | null) | User;
+  address?: string | null;
+  city?: string | null;
+  region?: string | null;
+  postal?: string | null;
+  country?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -1031,6 +1032,7 @@ export interface AuctionItemsSelect<T extends boolean = true> {
   tag?: T;
   image?: T;
   status?: T;
+  order?: T;
   updatedAt?: T;
   createdAt?: T;
 }

@@ -30,6 +30,7 @@ export const extractFavouriteData = async (data) => {
     endDate: data.endDate,
     bid_id: bids,
     id: data.id,
-    slug: data.slug
+    slug: data.slug,
+    order: data.order
   }
 }
