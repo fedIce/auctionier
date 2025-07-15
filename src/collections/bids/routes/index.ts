@@ -1,9 +1,9 @@
 import { extractFavouriteData } from "@/functions"
+import { inngestApp } from "@/ingest"
 import { scheduleCloseBidding } from "@/jobs/scheduleCloseBidding"
 import { BidItem } from "@/payload-types"
 import { RetryConfig } from "node_modules/payload/dist/queues/config/types/taskTypes"
 import { PayloadRequest, RunInlineTaskFunction, RunningJob, RunTaskFunctions } from "payload"
-
 
 export const post_bid = async (req: PayloadRequest) => {
 
@@ -76,6 +76,14 @@ export const post_bid = async (req: PayloadRequest) => {
         data: new_bids
     })
 
+    inngestApp.send({
+        name: "app/notify.users",
+        data: {
+            auction_id: auction_id,
+            time: new Date(Date.now() + 5 * 1000).toISOString(),
+            event: 'out_bidded'
+        },
+    });
 
     // check for reserve price requirements
     // check for user permissions requirements
@@ -113,6 +121,8 @@ export const loadUserWatchList = async (req: PayloadRequest) => {
             }
         }
     })
+
+
 
     const result = await Promise.all(auctionItems.docs.map(i => extractFavouriteData(i)))
 
