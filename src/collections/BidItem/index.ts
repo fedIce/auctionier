@@ -47,6 +47,15 @@ export const BidItem: CollectionConfig = {
             }
         },
         {
+            name: 'valid_bid',
+            type: 'checkbox',
+            label: 'Is Valid Bid',
+            defaultValue: true,
+            admin: {
+                readOnly: true
+            }
+        },
+        {
             name: 'auction_type',
             type: 'relationship',
             relationTo: 'auction_types',

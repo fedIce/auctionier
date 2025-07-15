@@ -6,17 +6,19 @@ export interface Bid {
   amount: number;
   user: string | null;
   id: string | null;
+  valid_bid: boolean;
 }
 
 export const topBid = (bids: Bid[]): Bid => {
   let top: Bid = {
     amount: 0,
     user: null,
-    id: null
+    id: null,
+    valid_bid: true
   };
 
   for (let i = 0; i <= bids.length - 1; i++) {
-    if (bids[i].amount > top.amount) {
+    if (bids[i].amount > top.amount && bids[i].valid_bid) {
       top = bids[i];
     }
   }

@@ -192,6 +192,7 @@ export interface BidItem {
   bid_id?: (string | null) | Bid;
   amount?: number | null;
   timestamp?: string | null;
+  valid_bid?: boolean | null;
   auction_type?: (string | null) | AuctionType;
   open_status?: boolean | null;
   updatedAt: string;
@@ -1142,6 +1143,7 @@ export interface BidItemSelect<T extends boolean = true> {
   bid_id?: T;
   amount?: T;
   timestamp?: T;
+  valid_bid?: T;
   auction_type?: T;
   open_status?: T;
   updatedAt?: T;

@@ -2,6 +2,12 @@ import { CollectionConfig, PayloadRequest } from "payload";
 
 export const Watchers: CollectionConfig = {
     slug: 'watchers',
+    access: {
+        read: () => true,
+        create: ({ req }) => !!req.user,
+        update: ({ req }) => !!req.user,
+        delete: ({ req }) => !!req.user,
+    },
     fields: [
         {
             name: 'auction_item',

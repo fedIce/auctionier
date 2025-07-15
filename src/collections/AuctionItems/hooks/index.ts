@@ -1,5 +1,6 @@
 import { slugify } from "@/functions";
 import { inngestApp } from "@/ingest";
+import { Bid } from "@/payload-types";
 import { serve } from "inngest/next";
 import { PayloadRequest } from "payload";
 
@@ -23,7 +24,9 @@ export const GenerateSlugHook = ({ data, operation }: { data: HookData; operatio
 export const InitializeBidForAuctionHook = async ({ doc, operation, req }: { doc: any; operation: OperationType; req: PayloadRequest }) => {
     // Only run on create
     const payload = req.payload;
-    let bid = null
+
+    let bid: Bid | null = null
+
     if (operation === 'create' || operation === 'update') {
         const data: {
             _id: string,
@@ -33,6 +36,7 @@ export const InitializeBidForAuctionHook = async ({ doc, operation, req }: { doc
             auction_starttime: any;
             auction_endtime: any;
             current_bid?: number;
+            reserve_price?: number;
         } = {
             _id: doc.id,
             id: doc.id,
@@ -40,12 +44,21 @@ export const InitializeBidForAuctionHook = async ({ doc, operation, req }: { doc
             starting_bid: doc.startingBid,
             auction_starttime: doc.startDate,
             auction_endtime: doc.endDate,
+            reserve_price: doc.reserve_price
         }
         try {
             bid = await req.payload.findByID({
                 collection: 'bids',
                 id: doc.id,
             });
+
+            if (bid) {
+                bid = await payload.update({
+                    collection: 'bids',
+                    id: data._id,
+                    data
+                });
+            }
         } catch (e) {
 
             if (operation === 'create') {

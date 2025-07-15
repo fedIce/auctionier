@@ -18,7 +18,7 @@ export const post_bid = async (req: PayloadRequest) => {
     const customer_id = data.customer_id
     const amount = parseFloat(data.amount)
     const auction_type = data.auction_type
-
+    let validBid = true
     const auction = await req.payload.findByID({
         id: auction_id,
         collection: 'auction-items'
@@ -38,6 +38,10 @@ export const post_bid = async (req: PayloadRequest) => {
     // check is auction is still open
     if (auction.endDate <= new Date().toISOString() && auction.active == true) return Response.json({ error: 'sorry, this auction is closed!' }, { status: 401 })
 
+    if ((parseFloat(String(bid.reserve_price ?? 0))) > amount) {
+        validBid = false
+    }
+
     const bidItem = await req.payload.create({
         collection: 'bid_item',
         data: {
@@ -46,7 +50,8 @@ export const post_bid = async (req: PayloadRequest) => {
             timestamp: new Date().toISOString(),
             auction_type: auction_type,
             open_status: true,
-            bid_id: bid.id
+            bid_id: bid.id,
+            valid_bid: validBid
         }
     })
 
@@ -75,7 +80,7 @@ export const post_bid = async (req: PayloadRequest) => {
     // check for reserve price requirements
     // check for user permissions requirements
 
-    return Response.json({ new_bids: bids }, { status: 200 })
+    return Response.json({ new_bids: bids, validBid }, { status: 200 })
 }
 
 
