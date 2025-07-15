@@ -259,6 +259,8 @@ export interface Notification {
   title?: string | null;
   body?: string | null;
   user?: (string | null) | User;
+  read?: boolean | null;
+  type?: ('error' | 'info' | 'warning' | 'success') | null;
   extra?:
     | {
         key?: string | null;
@@ -1028,6 +1030,8 @@ export interface NotificationsSelect<T extends boolean = true> {
   title?: T;
   body?: T;
   user?: T;
+  read?: T;
+  type?: T;
   extra?:
     | T
     | {

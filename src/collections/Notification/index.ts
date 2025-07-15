@@ -24,6 +24,34 @@ export const NotificationCollection: CollectionConfig = {
             relationTo: 'users'
         },
         {
+            name: 'read',
+            type: 'checkbox',
+            defaultValue: false
+        },
+        {
+            name: 'type',
+            type: 'select',
+            defaultValue: 'success',
+            options: [
+                {
+                    label: 'Error',
+                    value: 'error',
+                },
+                {
+                    label: 'Info',
+                    value: 'info',
+                },
+                {
+                    label: 'Warning',
+                    value: 'warning',
+                },
+                {
+                    label: 'Success',
+                    value: 'success',
+                },
+            ]
+        },
+        {
             name: 'extra',
             type: 'array',
             fields: [
