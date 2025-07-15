@@ -22,6 +22,7 @@ import { BidItem } from './collections/BidItem'
 import { CustomerShippingDetails } from './collections/shipping'
 import { Orders } from './collections/orders'
 import { Auctions } from './collections/auctions'
+import { Watchers } from './collections/watchers'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -34,7 +35,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Auctions, AuctionItems, Categories, SubCategories, Brands, AuctionTypes, Sellers, Bids, BidItem, CustomerShippingDetails, Orders],
+  collections: [Users, Media, Auctions, AuctionItems, Categories, SubCategories, Brands, AuctionTypes, Sellers, Bids, BidItem, CustomerShippingDetails, Orders, Watchers],
   // globals: [Categories],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',

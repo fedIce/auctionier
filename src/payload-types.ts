@@ -80,6 +80,7 @@ export interface Config {
     bid_item: BidItem;
     'customer-shipping-details': CustomerShippingDetail;
     orders: Order;
+    watchers: Watcher;
     'payload-jobs': PayloadJob;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -100,6 +101,7 @@ export interface Config {
     bid_item: BidItemSelect<false> | BidItemSelect<true>;
     'customer-shipping-details': CustomerShippingDetailsSelect<false> | CustomerShippingDetailsSelect<true>;
     orders: OrdersSelect<false> | OrdersSelect<true>;
+    watchers: WatchersSelect<false> | WatchersSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -721,6 +723,18 @@ export interface CustomerShippingDetail {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "watchers".
+ */
+export interface Watcher {
+  id: string;
+  auction_item?: (string | null) | AuctionItem;
+  user?: (string | null) | User;
+  time?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-jobs".
  */
 export interface PayloadJob {
@@ -869,6 +883,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'orders';
         value: string | Order;
+      } | null)
+    | ({
+        relationTo: 'watchers';
+        value: string | Watcher;
       } | null)
     | ({
         relationTo: 'payload-jobs';
@@ -1157,6 +1175,17 @@ export interface OrdersSelect<T extends boolean = true> {
   status?: T;
   payment_status?: T;
   payment_method?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "watchers_select".
+ */
+export interface WatchersSelect<T extends boolean = true> {
+  auction_item?: T;
+  user?: T;
+  time?: T;
   updatedAt?: T;
   createdAt?: T;
 }
