@@ -69,6 +69,7 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    notifications: Notification;
     auctions: Auction;
     'auction-items': AuctionItem;
     categories: Category;
@@ -90,6 +91,7 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    notifications: NotificationsSelect<false> | NotificationsSelect<true>;
     auctions: AuctionsSelect<false> | AuctionsSelect<true>;
     'auction-items': AuctionItemsSelect<false> | AuctionItemsSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
@@ -247,6 +249,25 @@ export interface Media {
       filename?: string | null;
     };
   };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "notifications".
+ */
+export interface Notification {
+  id: string;
+  title?: string | null;
+  body?: string | null;
+  user?: (string | null) | User;
+  extra?:
+    | {
+        key?: string | null;
+        value?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -842,6 +863,10 @@ export interface PayloadLockedDocument {
         value: string | Media;
       } | null)
     | ({
+        relationTo: 'notifications';
+        value: string | Notification;
+      } | null)
+    | ({
         relationTo: 'auctions';
         value: string | Auction;
       } | null)
@@ -994,6 +1019,24 @@ export interface MediaSelect<T extends boolean = true> {
               filename?: T;
             };
       };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "notifications_select".
+ */
+export interface NotificationsSelect<T extends boolean = true> {
+  title?: T;
+  body?: T;
+  user?: T;
+  extra?:
+    | T
+    | {
+        key?: T;
+        value?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

@@ -36,7 +36,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Auctions, AuctionItems, Categories, SubCategories, Brands, AuctionTypes, Sellers, Bids, BidItem, CustomerShippingDetails, Orders, Watchers, NotificationCollection],
+  collections: [Users, Media, NotificationCollection, Auctions, AuctionItems, Categories, SubCategories, Brands, AuctionTypes, Sellers, Bids, BidItem, CustomerShippingDetails, Orders, Watchers],
   // globals: [Categories],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
