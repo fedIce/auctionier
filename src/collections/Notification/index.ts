@@ -68,7 +68,7 @@ export const NotificationCollection: CollectionConfig = {
     ],
     endpoints: [
         {
-            path: '/push/:event',
+            path: '/push/:event/:auctionid',
             method: 'post',
             handler: async (req: PayloadRequest) => notifyUsers(req)
         }

@@ -76,11 +76,11 @@ export const post_bid = async (req: PayloadRequest) => {
         data: new_bids
     })
 
-    inngestApp.send({
+    await inngestApp.send({
         name: "app/notify.users",
         data: {
             auction_id: auction_id,
-            time: new Date(Date.now() + 5 * 1000).toISOString(),
+            time: new Date(Date.now() + 10 * 1000).toISOString(),
             event: 'out_bidded'
         },
     });

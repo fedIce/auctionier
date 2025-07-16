@@ -17,11 +17,11 @@ const closeAuction = inngestApp.createFunction(
 const notifyUsersApi = inngestApp.createFunction(
     { id: "notify-users" },
     { event: "app/notify.users" },
-    async ({ event, step }: { event: { data: { time?: string; event: string, data: object } }; step: any }) => {
+    async ({ event, step }: { event: { data: { time?: string; event: string, auction_id: object } }; step: any }) => {
         await step.sleepUntil("wait-for-iso-string", event.data.time || new Date().toISOString());
-        const res = await fetch(process.env.APP_URL + `/api/notifications/push/${event.data.event}`, {
+        const res = await fetch(process.env.APP_URL + `/api/notifications/push/${event.data.event}/${event.data.auction_id}`, {
             method: 'POST',
-            body: JSON.stringify(event.data.data)
+            body: JSON.stringify({})
         })
         const json = await res.json();
         return { message: json, auction: event.data.event };

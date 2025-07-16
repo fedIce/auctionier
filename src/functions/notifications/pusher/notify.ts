@@ -3,13 +3,17 @@ import { pusher } from '.'
 
 export const notifyUsers = async (req: PayloadRequest) => {
 
-    const aucion_id = req.routeParams?.event ?? ''
+    const event = req.routeParams?.event ?? ''
+    const bid_id = req.routeParams?.auctionid ?? ''
     try {
 
         const payload = req.payload
 
         const lastBid = await payload.find({
             collection: 'bid_item',
+            where: {
+                bid_id: { equals: bid_id }
+            },
             depth: 0,
             limit: 2,
             sort: '-amount'
@@ -37,14 +41,14 @@ export const notifyUsers = async (req: PayloadRequest) => {
         }
 
 
-        payload.create({
+        await payload.create({
             collection: 'notifications',
             data: {
                 type: 'warning',
                 ...data
             }
-        }).then((res) => {
-            pusher.trigger("gavel-app", "app-events", res)
+        }).then(async (res) => {
+            await pusher.trigger("gavel-app", "app-events", res)
         });
 
         return Response.json({ message: 'notification sent', lastBid, doc }, { status: 200 })
