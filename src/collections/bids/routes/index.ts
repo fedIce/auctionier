@@ -1,9 +1,17 @@
 import { extractFavouriteData } from "@/functions"
+import { pusher } from "@/functions/notifications/pusher"
 import { inngestApp } from "@/ingest"
-import { scheduleCloseBidding } from "@/jobs/scheduleCloseBidding"
+import { scheduleCloseBidding, topBid } from "@/jobs/scheduleCloseBidding"
 import { BidItem } from "@/payload-types"
 import { RetryConfig } from "node_modules/payload/dist/queues/config/types/taskTypes"
 import { PayloadRequest, RunInlineTaskFunction, RunningJob, RunTaskFunctions } from "payload"
+
+export interface Bid {
+    amount: number;
+    user: string | null;
+    id: string | null;
+    valid_bid: boolean;
+}
 
 export const post_bid = async (req: PayloadRequest) => {
 
@@ -133,14 +141,22 @@ export const loadUserWatchList = async (req: PayloadRequest) => {
 
 export const test_job = async (req: PayloadRequest) => {
 
-    const user = await req.payload.findByID({
+    const aucion_id = typeof req.routeParams?.id === 'string' || typeof req.routeParams?.id === 'number' ? req.routeParams.id : ''
+    const payload = req.payload
+
+    const bids = await req.payload.findByID({
         collection: 'bids',
-        id: typeof req.routeParams?.id === 'string' || typeof req.routeParams?.id === 'number' ? req.routeParams.id : '',
+        id: aucion_id,
+    })
+
+    const auction = await payload.findByID({
+        collection: 'auction-items',
+        id: aucion_id,
     })
 
     const result = await scheduleCloseBidding({
         input: {
-            id: user.id
+            id: bids.id
         },
         job: {} as RunningJob<any>,
         req,
@@ -149,6 +165,33 @@ export const test_job = async (req: PayloadRequest) => {
         },
         tasks: {} as RunTaskFunctions
     })
+
+    if (!(typeof bids == 'object')) return { status: false, message: 'No Bid object for this auction' }
+
+
+    const topBidder = topBid(bids.bids as Bid[])
+
+    if (topBidder.user) {
+        const data = {
+            user: topBidder.user,
+            title: 'You Won!',
+            body: 'You have won the bidding for an auction',
+            extra: [
+                { key: 'link', value: `${process.env.FRONTEND_APP_URL}/auctions/${auction.slug}` }
+            ]
+        }
+
+
+        await payload.create({
+            collection: 'notifications',
+            data: {
+                type: 'success',
+                ...data
+            }
+        }).then(async (res) => {
+            await pusher.trigger("gavel-app", "app-events", res)
+        });
+    }
 
 
     return Response.json({ result }, { status: 200 })

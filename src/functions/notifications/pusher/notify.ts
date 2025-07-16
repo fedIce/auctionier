@@ -124,7 +124,7 @@ const auctionClosingNotificationEvent = async (req: PayloadRequest, bid_id: stri
             return ({
                 user: user,
                 title: 'Auction Closing',
-                body: 'An auction you are following closes in 30 minutes',
+                body: 'An auction you are following closes soon!',
                 type: 'info',
                 extra: [
                     { key: 'link', value: `${process.env.FRONTEND_APP_URL}/auctions/${auction.slug}` }
