@@ -85,6 +85,15 @@ export const InitializeBidForAuctionHook = async ({ doc, operation, req }: { doc
                 // time: new Date(Date.now() + 10 * 1000).toISOString(), // For testing purposes, close auction in 10 seconds
             },
         });
+
+        await inngestApp.send({
+            name: "app/notify.users",
+            data: {
+                auction_id: doc.id,
+                time: new Date(new Date(doc.endDate).getTime() - 60 * 30 * 1000).toISOString(),
+                event: 'auction_closing'
+            },
+        });
     }
 
 
@@ -126,5 +135,7 @@ export const InitializeBidForAuctionHook = async ({ doc, operation, req }: { doc
 
 
     }
+
+
 
 }
