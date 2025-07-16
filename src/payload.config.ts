@@ -24,6 +24,7 @@ import { Orders } from './collections/orders'
 import { Auctions } from './collections/auctions'
 import { Watchers } from './collections/watchers'
 import { NotificationCollection } from './collections/Notification'
+import { SearchGlobal } from './globals/search'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -37,6 +38,7 @@ export default buildConfig({
     },
   },
   collections: [Users, Media, NotificationCollection, Auctions, AuctionItems, Categories, SubCategories, Brands, AuctionTypes, Sellers, Bids, BidItem, CustomerShippingDetails, Orders, Watchers],
+  globals: [SearchGlobal],
   // globals: [Categories],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
