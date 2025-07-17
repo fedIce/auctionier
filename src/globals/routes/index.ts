@@ -22,7 +22,7 @@ export const save_search_string = async (req: PayloadRequest) => {
                 }
             })
         })
-        return Response.json({ data: await trie.getWordsWithPrefix(query) })
+        return Response.json({ data: await trie.getWordsByInsertCount(query) })
     } catch (e) {
         return Response.json({ errors: [{ message: "failed to add search word", error: String(e) }] })
     }
@@ -43,7 +43,7 @@ export const get_search_string = async (req: PayloadRequest) => {
 
         const trie = Trie.fromJSON(s.s)
 
-        return Response.json({ data: trie.getWordsWithPrefix(query) })
+        return Response.json({ data: trie.getWordsByInsertCount(query) })
     } catch (e) {
         return Response.json({ errors: [{ message: "failed to add search word", error: String(e) }] })
     }

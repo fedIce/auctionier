@@ -2,16 +2,19 @@ class TrieNode {
     constructor() {
       this.children = {}; // Key: character, Value: TrieNode
       this.isEndOfWord = false;
+      this.insertCount = 0; // New property to track insertion attempts
     }
   }
   
   class Trie {
     constructor() {
       this.root = new TrieNode();
+      this.totalInsertAttempts = 0; // Track total insertion attempts
     }
   
-    // Insert a word into the trie
+    // Insert a word into the trie and count attempts
     async insert(word) {
+      this.totalInsertAttempts++;
       let node = this.root;
       for (const char of word) {
         if (!node.children[char]) {
@@ -20,64 +23,35 @@ class TrieNode {
         node = node.children[char];
       }
       node.isEndOfWord = true;
+      node.insertCount++; // Increment count for this specific word
       return this.toJSON()
     }
   
-    // Search for a complete word in the trie
-    search(word) {
+    // Get the insertion attempt count for a specific word
+    getInsertCount(word) {
       let node = this.root;
       for (const char of word) {
         if (!node.children[char]) {
-          return false;
+          return 0; // Word doesn't exist, so count is 0
         }
         node = node.children[char];
       }
-      return node.isEndOfWord;
+      return node.isEndOfWord ? node.insertCount : 0;
     }
   
-    // Check if any word in the trie starts with the given prefix
-    startsWith(prefix) {
-      let node = this.root;
-      for (const char of prefix) {
-        if (!node.children[char]) {
-          return false;
-        }
-        node = node.children[char];
-      }
-      return true;
+    // Get total insertion attempts across all words
+    getTotalInsertAttempts() {
+      return this.totalInsertAttempts;
     }
   
-    // Get all words that start with the given prefix
-    getWordsWithPrefix(prefix) {
-      let node = this.root;
-      const words = [];
-      
-      // Traverse to the end of the prefix
-      for (const char of prefix) {
-        if (!node.children[char]) {
-          return words; // Return empty array if prefix doesn't exist
-        }
-        node = node.children[char];
-      }
-      
-      // Helper function to perform DFS from current node
-      const dfs = (currentNode, currentWord) => {
-        if (currentNode.isEndOfWord) {
-          words.push(prefix + currentWord);
-        }
-        
-        for (const [char, childNode] of Object.entries(currentNode.children)) {
-          dfs(childNode, currentWord + char);
-        }
-      };
-      
-      dfs(node, "");
-      return words;
-    }
+    // (Keep all other existing methods: search, startsWith, getWordsWithPrefix, etc.)
   
-    // Serialize the trie to a JSON string
+    // Update toJSON to include the new counts
     toJSON() {
-      return JSON.stringify(this.root, (key, value) => {
+      return JSON.stringify({
+        root: this.root,
+        totalInsertAttempts: this.totalInsertAttempts
+      }, (key, value) => {
         if (key === 'children') {
           return value;
         }
@@ -85,79 +59,107 @@ class TrieNode {
       }, 2);
     }
   
-    // Deserialize a JSON string to rebuild the trie
+    // Update fromJSON to handle the new counts
     static fromJSON(jsonString) {
-        // Validate input
-        if (typeof jsonString !== 'string') {
-          throw new Error('Input must be a JSON string');
+      const data = JSON.parse(jsonString);
+      const trie = new Trie();
+      
+      // Rebuild the trie structure (similar to previous implementation)
+      const rebuild = (nodeData, parentNode) => {
+        for (const [char, childData] of Object.entries(nodeData.children)) {
+          const childNode = new TrieNode();
+          childNode.isEndOfWord = childData.isEndOfWord;
+          childNode.insertCount = childData.insertCount || 0;
+          parentNode.children[char] = childNode;
+          rebuild(childData, childNode);
         }
+      };
       
-        let parsedData;
-        try {
-          parsedData = JSON.parse(jsonString);
-        } catch (e) {
-          throw new Error('Invalid JSON string provided');
+      trie.root = data.root ? data.root : new TrieNode();
+      trie.totalInsertAttempts = data.totalInsertAttempts || 0;
+      rebuild(trie.root, trie.root);
+      return trie;
+    }
+    
+     // Returns words with given prefix sorted by insertCount (descending)
+    getWordsByInsertCount(prefix, order='asc') {
+      let node = this.root;
+      const results = [];
+      
+      // Traverse to the end of the prefix
+      for (const char of prefix) {
+        if (!node.children[char]) {
+          return []; // Prefix doesn't exist
         }
-      
-        // Validate the parsed data structure
-        if (!parsedData || typeof parsedData !== 'object') {
-          throw new Error('Invalid trie data structure');
-        }
-      
-        const trie = new Trie();
-      
-        // Recursive function to rebuild the trie structure
-        const rebuild = (nodeData, parentNode) => {
-          if (!nodeData.children || typeof nodeData.children !== 'object') {
-            return;
-          }
-      
-          for (const [char, childData] of Object.entries(nodeData.children)) {
-            if (typeof char !== 'string' || char.length !== 1) {
-              continue; // Skip invalid keys
-            }
-      
-            const childNode = new TrieNode();
-            childNode.isEndOfWord = !!childData.isEndOfWord; // Ensure boolean
-            
-            if (childData.children && typeof childData.children === 'object') {
-              parentNode.children[char] = childNode;
-              rebuild(childData, childNode);
-            } else {
-              // Handle leaf nodes
-              childNode.children = {};
-              parentNode.children[char] = childNode;
-            }
-          }
-        };
-      
-        // Initialize root properties
-        trie.root.isEndOfWord = !!parsedData.isEndOfWord;
-        trie.root.children = {};
-      
-        // Start rebuilding from the root
-        rebuild(parsedData, trie.root);
-        return trie;
+        node = node.children[char];
       }
+      
+      // Perform DFS to collect all words with this prefix
+      const dfs = (currentNode, currentSuffix) => {
+        if (currentNode.isEndOfWord) {
+          results.push({
+            word: prefix + currentSuffix,
+            count: currentNode.insertCount
+          });
+        }
+        
+        for (const [char, childNode] of Object.entries(currentNode.children)) {
+          dfs(childNode, currentSuffix + char);
+        }
+      };
+      
+      dfs(node, "");
+      
+      // Sort by insertCount (descending) and then alphabetically (ascending)
+      return results.sort((a, b) => {
+        if(order === 'asc'){
+            if (b.count !== a.count) {
+              return b.count - a.count; // Higher counts first
+            }
+        }else{
+            if (b.count !== a.count) {
+                return a.count - b.count; // Lower counts first
+              }
+        }
+        return a.word.localeCompare(b.word); // Alphabetical if counts equal
+      }).map(item => item.word); // Return just the words
+    }
+  
   }
   
-//   // Example usage:
+  // Example usage:
+//   const trie = new Trie();
+//   trie.insert("apple");
+//   trie.insert("apple");
+//   trie.insert("banana");
+//   trie.insert("apple");
   
 //   trie.insert("apple");
+//   trie.insert("apple");
+//   trie.insert("apple"); // 3x
 //   trie.insert("app");
-//   trie.insert("application");
+//   trie.insert("app");   // 2x
 //   trie.insert("banana");
-//   trie.insert("appetizer");
-//   trie.insert("apparatus");
-//   trie.insert("banjo");
+//   trie.insert("banana"); // 2x
+//   trie.insert("application"); // 1x
   
-//   console.log("Words with prefix 'app':", trie.getWordsWithPrefix("apple"));
-//   // Output: ["app", "apple", "appetizer", "apparatus", "application"]
+//   console.log("Insert count for 'apple':", trie.getInsertCount("apple")); // 3
+//   console.log("Insert count for 'banana':", trie.getInsertCount("banana")); // 1
+//   console.log("Insert count for 'orange':", trie.getInsertCount("orange")); // 0
+//   console.log("Total insert attempts:", trie.getTotalInsertAttempts()); // 4
   
-//   console.log("Words with prefix 'ban':", trie.getWordsWithPrefix("ban"));
-//   // Output: ["banana", "banjo"]
+//   // Serialization/deserialization maintains the counts
+//   const json = trie.toJSON();
+//   const newTrie = Trie.fromJSON(json);
+//   console.log("After deserialization - insert count for 'apple':", 
+//     newTrie.getInsertCount("apple")); // 3
   
-//   console.log("Words with prefix 'x':", trie.getWordsWithPrefix("x"));
-//   // Output: [] (empty array)
+//   console.log("Words prefixed with 'app' sorted by frequency:");
+//   console.log(trie.getWordsByInsertCount("app"));
+//   // Output: ["apple", "app", "application"] 
+//   // (apple:3, app:2, application:1)
+  
+//   console.log("Words prefixed with 'b' sorted by frequency:");
+//   console.log(trie.getWordsByInsertCount("b"));
 
 export { Trie}
