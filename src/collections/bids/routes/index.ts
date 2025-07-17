@@ -166,7 +166,7 @@ export const test_job = async (req: PayloadRequest) => {
         tasks: {} as RunTaskFunctions
     })
 
-    if (!(typeof bids == 'object')) return { status: false, message: 'No Bid object for this auction' }
+    if (!(typeof bids == 'object')) return Response.json({ status: false, message: 'No Bid object for this auction' }, { status: 400 })
 
 
     const topBidder = topBid(bids.bids as Bid[])
