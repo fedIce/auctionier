@@ -62,7 +62,7 @@ export const InitializeBidForAuctionHook = async ({ doc, operation, req }: { doc
         } catch (e) {
 
             if (operation === 'create') {
-                data['current_bid'] = 0
+                data['current_bid'] = doc.startingBid ?? 0
             }
 
             bid = await payload.update({

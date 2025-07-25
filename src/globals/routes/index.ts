@@ -4,7 +4,7 @@ import { Trie } from '../../functions/search'
 export const save_search_string = async (req: PayloadRequest) => {
 
     try {
-        const query = req.routeParams?.query ?? ''
+        const query = req.routeParams?.query as string ?? ''
 
         const payload = req.payload
 
@@ -12,9 +12,9 @@ export const save_search_string = async (req: PayloadRequest) => {
             slug: 'search',
         })
 
-        const trie = Trie.fromJSON(s.s)
+        const trie = Trie.fromJSON(s.s.toLowerCase())
 
-        const res = await trie.insert(query).then(async (json_string) => {
+        const res = await trie.insert(query.toLowerCase()).then(async (json_string) => {
             return await payload.updateGlobal({
                 slug: 'search',
                 data: {
@@ -22,7 +22,7 @@ export const save_search_string = async (req: PayloadRequest) => {
                 }
             })
         })
-        return Response.json({ data: await trie.getWordsByInsertCount(query) })
+        return Response.json({ data: await trie.getWordsByInsertCount(query.toLowerCase()) })
     } catch (e) {
         return Response.json({ errors: [{ message: "failed to add search word", error: String(e) }] })
     }
@@ -33,7 +33,7 @@ export const save_search_string = async (req: PayloadRequest) => {
 export const get_search_string = async (req: PayloadRequest) => {
 
     try {
-        const query = req.routeParams?.query ?? ''
+        const query = req.routeParams?.query as string ?? ''
 
         const payload = req.payload
 
@@ -41,9 +41,9 @@ export const get_search_string = async (req: PayloadRequest) => {
             slug: 'search',
         })
 
-        const trie = Trie.fromJSON(s.s)
+        const trie = Trie.fromJSON(s.s.toLowerCase())
 
-        return Response.json({ data: trie.getWordsByInsertCount(query) })
+        return Response.json({ data: trie.getWordsByInsertCount(query.toLowerCase()) })
     } catch (e) {
         return Response.json({ errors: [{ message: "failed to add search word", error: String(e) }] })
     }

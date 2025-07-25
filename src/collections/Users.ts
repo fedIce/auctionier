@@ -35,7 +35,63 @@ export const Users: CollectionConfig = {
       name: 'phone',
       type: 'text',
       unique: true
+    },
+    {
+      name: 'username',
+      type: 'text',
+      unique: true
+    },
+    {
+      name: 'preferences',
+      type: 'group',
+      defaultValue: {
+        auction_ending_soon_notification: true,
+        auction_outbided_notification: true,
+        auction_new_in_tracked_search_notification: true,
+        auction_ending_soon_email: true,
+        auction_outbided_email: true,
+        auction_new_in_tracked_search_email: true,
+        display_user_name_setting: true,
+      },
+      fields: [
+        {
+          name: 'auction_ending_soon_notification',
+          type: 'checkbox',
+          defaultValue: true,
+        },
+        {
+          name: 'auction_outbided_notification',
+          type: 'checkbox',
+          defaultValue: true,
+        },
+        {
+          name: 'auction_new_in_tracked_search_notification',
+          type: 'checkbox',
+          defaultValue: true,
+        },
+        {
+          name: 'auction_ending_soon_email',
+          type: 'checkbox',
+          defaultValue: true,
+        },
+        {
+          name: 'auction_outbided_email',
+          type: 'checkbox',
+          defaultValue: true,
+        },
+        {
+          name: 'auction_new_in_tracked_search_email',
+          type: 'checkbox',
+          defaultValue: true,
+        },
+        {
+          name: 'display_user_name_setting',
+          type: 'checkbox',
+          defaultValue: true,
+        }
+      ]
     }
+
   ],
   endpoints: [
     {
@@ -48,5 +104,27 @@ export const Users: CollectionConfig = {
       method: 'get',
       handler: async (req: PayloadRequest) => confirmPayment(req)
     }
-  ]
+  ],
+  // hooks: {
+  //   afterRead: [
+  //     ({ doc, req }) => {
+  //       if (req.url?.startsWith('/api/users') && !req.query.preferences) {
+  //         return {
+  //           ...doc,
+  //           preferences: undefined
+  //         };
+  //       }
+
+  //       return doc;
+  //     }
+  //   ]
+  // }
 }
+
+// auction_ending_soon_notification
+// auction_outbided_notification
+// auction_new_in_tracked_search_notification
+// auction_ending_soon_email
+// auction_outbided_email
+// auction_new_in_tracked_search_email
+// display_user_name_setting

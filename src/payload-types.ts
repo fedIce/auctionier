@@ -160,6 +160,16 @@ export interface User {
   fullname: string;
   won_bids?: (string | Bid)[] | null;
   phone?: string | null;
+  username?: string | null;
+  preferences?: {
+    auction_ending_soon_notification?: boolean | null;
+    auction_outbided_notification?: boolean | null;
+    auction_new_in_tracked_search_notification?: boolean | null;
+    auction_ending_soon_email?: boolean | null;
+    auction_outbided_email?: boolean | null;
+    auction_new_in_tracked_search_email?: boolean | null;
+    display_user_name_setting?: boolean | null;
+  };
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -974,6 +984,18 @@ export interface UsersSelect<T extends boolean = true> {
   fullname?: T;
   won_bids?: T;
   phone?: T;
+  username?: T;
+  preferences?:
+    | T
+    | {
+        auction_ending_soon_notification?: T;
+        auction_outbided_notification?: T;
+        auction_new_in_tracked_search_notification?: T;
+        auction_ending_soon_email?: T;
+        auction_outbided_email?: T;
+        auction_new_in_tracked_search_email?: T;
+        display_user_name_setting?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   email?: T;

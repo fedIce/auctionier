@@ -2,6 +2,12 @@ import type { CollectionConfig, PayloadRequest } from 'payload'
 
 export const Orders: CollectionConfig = {
     slug: 'orders',
+    access: {
+        read: () => true,
+        create: ({ req }) => true,
+        update: ({ req }) => true,
+        delete: ({ req }) => true,
+    },
     fields: [
         {
             name: 'user',
